@@ -42,6 +42,10 @@ export default defineConfig({
           autogenerate: { directory: 'configuration' },
         },
         {
+          label: 'Reference',
+          autogenerate: { directory: 'reference' },
+        },
+        {
           label: 'Self hosting',
           items: [
             { label: 'Overview', link: '/self-hosting/overview' },
