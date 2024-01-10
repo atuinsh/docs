@@ -9,6 +9,15 @@ export default defineConfig({
       title: 'Atuin Docs',
       favicon: './src/assets/atuin.png',
 
+      head: [{
+        tag: 'script',
+        attrs: {
+          src: 'https://plausible.io/js/script.js',
+          defer: true,
+          'data-domain': 'docs.atuin.sh',
+        }
+      }],
+
       logo: {
         light: './src/assets/logo-light.svg',
         dark: './src/assets/logo-dark.png',
