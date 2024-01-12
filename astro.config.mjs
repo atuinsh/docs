@@ -64,6 +64,7 @@ export default defineConfig({
         },
         { label: 'Known issues', link: '/known-issues' },
         { label: 'Integrations', link: '/integrations' },
+        { label: 'FAQ', link: '/faq' },
       ],
     }),
   ],

@@ -44,3 +44,13 @@ it, press tab.
 You might like to configure an [inline
 window](https://atuin.sh/docs/config/#inline_height), or [disable up arrow
 bindings](https://atuin.sh/docs/key-binding#disable-up-arrow)
+
+Note: The above sync and registration is fully optional. If you'd like to use Atuin offline, you can run
+
+```
+bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
+
+atuin import auto
+```
+
+Your shell history will be local only, not backed up, and not synchronized across devices.
