@@ -57,7 +57,8 @@ export default defineConfig({
         {
           label: 'Self hosting',
           items: [
-            { label: 'Overview', link: '/self-hosting/overview' },
+            { label: 'Server setup', link: '/self-hosting/server-setup' },
+            { label: 'Usage', link: '/self-hosting/usage' },
             { label: 'Docker', link: '/self-hosting/docker' },
             { label: 'Kubernetes', link: '/self-hosting/kubernetes' },
           ],
