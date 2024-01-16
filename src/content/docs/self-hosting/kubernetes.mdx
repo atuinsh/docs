@@ -4,7 +4,7 @@ title: Kubernetes
 
 You could host your own Atuin server using the Kubernetes platform.
 
-Create a [`secrets.yaml`](../../../k8s/secrets.yaml) file for the database credentials:
+Create a [`secrets.yaml`](https://github.com/atuinsh/atuin/blob/main/k8s/secrets.yaml) file for the database credentials:
 
 ```yaml
 apiVersion: v1
@@ -22,7 +22,7 @@ stringData:
 immutable: true
 ```
 
-Create a [`atuin.yaml`](../../../k8s/atuin.yaml) file for the Atuin server:
+Create a [`atuin.yaml`](https://github.com/atuinsh/atuin/blob/main/k8s/atuin.yaml) file for the Atuin server:
 
 ```yaml
 ---
@@ -167,7 +167,7 @@ spec:
       storage: 10Mi
 ```
 
-Finally, you may want to use a separate namespace for atuin, by creating a [`namespaces.yaml`](../../../k8s/namespaces.yaml) file:
+Finally, you may want to use a separate namespace for atuin, by creating a [`namespaces.yaml`](https://github.com/atuinsh/atuin/blob/main/k8s/namespaces.yaml) file:
 
 ```yaml
 apiVersion: v1
