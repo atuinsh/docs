@@ -306,7 +306,7 @@ This technically defaults to true for new users, but false for existing. We
 have set `enter_accept = true` in the default config file. This is likely to
 change to be the default for everyone in a later release.
 
-## keymap_mode
+### keymap_mode
 Default: "emacs"
 
 The initial keymap mode of the interactive Atuin search (e.g. started by the
@@ -315,12 +315,31 @@ keybindings in the shells).  There are four supported values: `"emacs"`,
 most basic one.  In the keymap mode `"vim-normal"`, you may use <kbd>k</kbd>
 and <kbd>j</kbd> to navigate the history list as in Vim, whilst pressing
 <kbd>i</kbd> changes the keymap mode to `"vim-insert"`.  In the keymap mode
-`"vim-insert"`, you can search string as in the keymap mode `"emacs"`, while
-pressing <kbd>Esc</kbd> switches the keymap mode to `"vim-normal"`.  When set
-to `"auto"`, the initial keymap mode is automatically determined based on the
-shell's keymap that triggered the Atuin search. `"auto"` is not supported by
-NuShell at present, where it will always trigger the Atuin search with the
-keymap mode`"emacs"`.
+`"vim-insert"`, you can search for a string as in the keymap mode `"emacs"`,
+while pressing <kbd>Esc</kbd> switches the keymap mode to `"vim-normal"`.  When
+set to `"auto"`, the initial keymap mode is automatically determined based on
+the shell's keymap that triggered the Atuin search. `"auto"` is not supported
+by NuShell at present, where it will always trigger the Atuin search with the
+keymap mode `"emacs"`.
+
+### keymap_cursor
+Default: (empty dictionary)
+
+The terminal's cursor style associated with each keymap mode in the Atuin
+search.  This is specified by a dictionary whose keys and values being the
+keymap names and the cursor styles, respectively.  A key specifies one of the
+keymaps from `emacs`, `vim_insert`, and `vim_normal`.  A value is one of the
+cursor styles, `default` or `{blink,steady}-{block,underline,bar}`.  The
+following is an example.
+
+```toml
+keymap_cursor = { emacs = "blink-block", vim_insert = "blink-block", vim_normal = "steady-block" }
+```
+
+If the cursor style is specified, the terminal's cursor style is changed to the
+specified one when the Atuin search starts with or switches to the
+corresponding keymap mode.  Also, the terminal's cursor style is reset to the
+one associated with the keymap mode corresponding to the shell's keymap.
 
 ## Stats
 This section of client config is specifically for configuring Atuin stats calculations
