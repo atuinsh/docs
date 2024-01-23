@@ -7,7 +7,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Atuin Docs',
-      favicon: './src/assets/atuin.png',
+      favicon: 'atuin.png',
 
       head: [{
         tag: 'script',
