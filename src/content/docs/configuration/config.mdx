@@ -241,13 +241,13 @@ Pressing ctrl+c or ctrl+d will always return the original command-line value.
 exit_mode = "return-query"
 ```
 
-### history_format
+### `history_format`
 
 The history format allows you to configure the default history list format - which can also be specified with the --format arg.
 
 The specified --format arg will prioritize the config when both are present
 
-### history_filter
+### `history_filter`
 
 The history filter allows you to exclude commands from history tracking - maybe you want to keep ALL of your `curl` commands totally out of your shell history, or maybe just some matching a pattern.
 
@@ -262,7 +262,7 @@ history_filter = [
 ]
 ```
 
-### secrets_filter
+### `secrets_filter`
 
 ```
 secrets_filter = true
@@ -277,7 +277,7 @@ Defaults to true. This matches history against a set of default regex, and will 
 5. Stripe live/test keys
 6. Atuin login command
 
-### macOS <kbd>Ctrl-n</kbd> key shortcuts
+### `macOS` <kbd>Ctrl-n</kbd> key shortcuts
 
 macOS does not have an <kbd>Alt</kbd> key, although terminal emulators can often be configured to map the <kbd>Option</kbd> key to be used as <kbd>Alt</kbd>. *However*, remapping <kbd>Option</kbd> this way may prevent typing some characters, such as using <kbd>Option-3</kbd> to type `#` on the British English layout. For such a scenario, set the `ctrl_n_shortcuts` option to `true` in your config file to replace <kbd>Alt-0</kbd> to <kbd>Alt-9</kbd> shortcuts with <kbd>Ctrl-0</kbd> to <kbd>Ctrl-9</kbd> instead:
 
@@ -286,20 +286,20 @@ macOS does not have an <kbd>Alt</kbd> key, although terminal emulators can often
 ctrl_n_shortcuts = true
 ```
 
-### network_timeout
+### `network_timeout`
 Default: 30
 
 The max amount of time (in seconds) to wait for a network request. If any
 operations with a sync server take longer than this, the code will fail -
 rather than wait indefinitely.
 
-### network_connect_timeout
+### `network_connect_timeout`
 Default: 5
 
 The max time (in seconds) we wait for a connection to become established with a
 remote sync server. Any longer than this and the request will fail.
 
-### enter_accept
+### `enter_accept`
 Default: false
 
 Not supported by NuShell presently
@@ -312,7 +312,7 @@ This technically defaults to true for new users, but false for existing. We
 have set `enter_accept = true` in the default config file. This is likely to
 change to be the default for everyone in a later release.
 
-### keymap_mode
+### `keymap_mode`
 Default: "emacs"
 
 The initial keymap mode of the interactive Atuin search (e.g. started by the
@@ -328,7 +328,7 @@ the shell's keymap that triggered the Atuin search. `"auto"` is not supported
 by NuShell at present, where it will always trigger the Atuin search with the
 keymap mode `"emacs"`.
 
-### keymap_cursor
+### `keymap_cursor`
 Default: (empty dictionary)
 
 The terminal's cursor style associated with each keymap mode in the Atuin
@@ -356,7 +356,7 @@ common_subcommands = [...]
 common_prefix = [...]
 ```
 
-### common_subcommands
+### `common_subcommands`
 
 Default
 
@@ -374,7 +374,7 @@ common_subcommands = [
 
 Configures commands where we should consider the subcommand as part of the statistics. For example, consider `kubectl get` rather than just `kubectl`.
 
-### common_prefix
+### `common_prefix`
 
 Default
 
