@@ -63,20 +63,33 @@ ctrl_n_shortcuts = true
 
 If you'd like to customize your bindings further, it's possible to do so with custom shell config:
 
-Atuin defines the ZLE widget "\_atuin_search_widget"
+Atuin defines the ZLE widgets "atuin-search" and "atuin-up-search".  The latter
+can be used for the keybindings to the <kbd>up</kbd> key and similar keys.
+
+Note: instead use the widget names "\_atuin\_search\_widget" and "\_atuin\_up\_search\_widget", respectively, in `atuin <= 17.2.1`
 
 ```
 export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"
 
-bindkey '^r' _atuin_search_widget
+bindkey '^r' atuin-search
 
-# depends on terminal mode
-bindkey '^[[A' _atuin_search_widget
-bindkey '^[OA' _atuin_search_widget
+# bind to the up key, which depends on terminal mode
+bindkey '^[[A' atuin-up-search
+bindkey '^[OA' atuin-up-search
 ```
 
+For the keybindings in vi mode, "atuin-search-viins", "atuin-search-vicmd",
+"atuin-up-search-viins", and "atuin-up-search-vicmd" (`atuin >= 17.3`) can be
+used in combination with the config
+["keymap\_mode"](https://docs.atuin.sh/configuration/config/#keymap_mode)
+(`atuin >= 17.3`) to start the Atuin search in respective keymap modes.
+
 ## bash
+
+Atuin provides a bindable shell function "`_atuin_history`" for keybindings in
+Bash.  The flag `--shell-up-key-binding` can be optionally specified to the
+first argument for keybindings to the <kbd>up</kbd> key or similar keys.
 
 ```
 export ATUIN_NOBIND="true"
@@ -84,7 +97,18 @@ eval "$(atuin init bash)"
 
 # bind to ctrl-r, add any other bindings you want here too
 bind -x '"\C-r": __atuin_history'
+
+# bind to the up key, which depends on terminal mode
+bind -x '"\e[A": __atuin_history --shell-up-key-binding'
+bind -x '"\eOA": __atuin_history --shell-up-key-binding'
 ```
+
+For the keybindings in the `vi` editing mode, the options
+`--keymap-mode=vim-insert` and `--keymap-mode=vim-normal` (`atuin >= 17.3`) can
+be additionally specified to the shell function `__atuin_history` in
+combination with the config
+["keymap\_mode"](https://docs.atuin.sh/configuration/config/#keymap_mode)
+(`atuin >= 17.3`) to start the Atuin search in respective keymap modes.
 
 ## fish
 Edit key bindings in FISH shell by adding the following to ~/.config/fish/config.fish
@@ -97,6 +121,8 @@ atuin init fish | source
 bind \cr _atuin_search
 bind -M insert \cr _atuin_search
 ```
+
+For the <kbd>up</kbd> keybinding, `_atuin_bind_up` can be used instead of `_atuin_search`.
 
 Adding the useful alternative key binding of <kbd>CTRL-up</kbd> is tricky and determined by the terminals adherence to terminfo(5).
 
