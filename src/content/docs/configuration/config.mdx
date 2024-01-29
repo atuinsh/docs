@@ -241,6 +241,12 @@ Pressing ctrl+c or ctrl+d will always return the original command-line value.
 exit_mode = "return-query"
 ```
 
+### history_format
+
+The history format allows you to configure the default history list format - which can also be specified with the --format arg.
+
+The specified --format arg will prioritize the config when both are present
+
 ### history_filter
 
 The history filter allows you to exclude commands from history tracking - maybe you want to keep ALL of your `curl` commands totally out of your shell history, or maybe just some matching a pattern.
