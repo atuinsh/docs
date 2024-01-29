@@ -63,9 +63,10 @@ ctrl_n_shortcuts = true
 
 If you'd like to customize your bindings further, it's possible to do so with custom shell config:
 
-Atuin defines the ZLE widget "atuin-search"
+Atuin defines the ZLE widgets "atuin-search" and "atuin-up-search".  The latter
+can be used for the keybindings to the <kbd>up</kbd> key and similar keys.
 
-Note: use the widget name "\_atuin\_search\_widget" in `atuin <= 17.2.1` instead
+Note: instead use the widget names "\_atuin\_search\_widget" and "\_atuin\_up\_search\_widget", respectively, in `atuin <= 17.2.1`
 
 ```
 export ATUIN_NOBIND="true"
@@ -73,12 +74,16 @@ eval "$(atuin init zsh)"
 
 bindkey '^r' atuin-search
 
-# depends on terminal mode
-bindkey '^[[A' atuin-search
-bindkey '^[OA' atuin-search
+# bind to the up key, which depends on terminal mode
+bindkey '^[[A' atuin-up-search
+bindkey '^[OA' atuin-up-search
 ```
 
 ## bash
+
+Atuin provides a bindable shell function "`_atuin_history`" for keybindings in
+Bash.  The flag `--shell-up-key-binding` can be optionally specified to the
+first argument for keybindings to the <kbd>up</kbd> key or similar keys.
 
 ```
 export ATUIN_NOBIND="true"
@@ -86,6 +91,10 @@ eval "$(atuin init bash)"
 
 # bind to ctrl-r, add any other bindings you want here too
 bind -x '"\C-r": __atuin_history'
+
+# bind to the up key, which depends on terminal mode
+bind -x '"\e[A": __atuin_history --shell-up-key-binding'
+bind -x '"\eOA": __atuin_history --shell-up-key-binding'
 ```
 
 ## fish
@@ -99,6 +108,8 @@ atuin init fish | source
 bind \cr _atuin_search
 bind -M insert \cr _atuin_search
 ```
+
+For the <kbd>up</kbd> keybinding, `_atuin_bind_up` can be used instead of `_atuin_search`.
 
 Adding the useful alternative key binding of <kbd>CTRL-up</kbd> is tricky and determined by the terminals adherence to terminfo(5).
 
