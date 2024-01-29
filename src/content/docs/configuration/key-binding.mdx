@@ -63,17 +63,19 @@ ctrl_n_shortcuts = true
 
 If you'd like to customize your bindings further, it's possible to do so with custom shell config:
 
-Atuin defines the ZLE widget "\_atuin_search_widget"
+Atuin defines the ZLE widget "atuin-search"
+
+Note: use the widget name "\_atuin\_search\_widget" in `atuin <= 17.2.1` instead
 
 ```
 export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"
 
-bindkey '^r' _atuin_search_widget
+bindkey '^r' atuin-search
 
 # depends on terminal mode
-bindkey '^[[A' _atuin_search_widget
-bindkey '^[OA' _atuin_search_widget
+bindkey '^[[A' atuin-search
+bindkey '^[OA' atuin-search
 ```
 
 ## bash
