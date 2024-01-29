@@ -79,6 +79,12 @@ bindkey '^[[A' atuin-up-search
 bindkey '^[OA' atuin-up-search
 ```
 
+For the keybindings in vi mode, "atuin-search-viins", "atuin-search-vicmd",
+"atuin-up-search-viins", and "atuin-up-search-vicmd" (`atuin >= 17.3`) can be
+used in combination with the config
+["keymap\_mode"](https://docs.atuin.sh/configuration/config/#keymap_mode)
+(`atuin >= 17.3`) to start the Atuin search in respective keymap modes.
+
 ## bash
 
 Atuin provides a bindable shell function "`_atuin_history`" for keybindings in
@@ -96,6 +102,13 @@ bind -x '"\C-r": __atuin_history'
 bind -x '"\e[A": __atuin_history --shell-up-key-binding'
 bind -x '"\eOA": __atuin_history --shell-up-key-binding'
 ```
+
+For the keybindings in the `vi` editing mode, the options
+`--keymap-mode=vim-insert` and `--keymap-mode=vim-normal` (`atuin >= 17.3`) can
+be additionally specified to the shell function `__atuin_history` in
+combination with the config
+["keymap\_mode"](https://docs.atuin.sh/configuration/config/#keymap_mode)
+(`atuin >= 17.3`) to start the Atuin search in respective keymap modes.
 
 ## fish
 Edit key bindings in FISH shell by adding the following to ~/.config/fish/config.fish
