@@ -141,6 +141,7 @@ filter_mode = "host"
 ```
 
 ### `search_mode_shell_up_key_binding`
+Atuin version: >= 17.0
 
 The default searchmode to use when searching and being invoked from a shell up-key binding.
 
@@ -165,6 +166,7 @@ filter_mode_shell_up_key_binding = "session"
 Defaults to the value specified for filter_mode.
 
 ### `workspaces`
+Atuin version: >= 17.0
 
 This flag enables a pseudo filter-mode named "workspace": the filter is automatically
 activated when you are in a git repository. Defaults to false.
@@ -189,6 +191,7 @@ Which style to use. Possible values: `auto`, `full` and `compact`.
 Defaults to `auto`. This means that Atuin will automatically switch to `compact` mode when the terminal window is too short for `full` to display properly.
 
 ### `invert`
+Atuin version: >= 17.0
 
 Invert the UI - put the search bar at the top , Default to `false`
 
@@ -213,6 +216,7 @@ Configure whether or not to show a preview of the selected command.
 Useful when the command is longer than the terminal width and is cut off.
 
 ### `max_preview_height`
+Atuin version: >= 17.0
 
 Configure the maximum height of the preview to show.
 
@@ -221,6 +225,7 @@ Useful when you have long scripts in your history that you want to distinguish b
 Defaults to `4`.
 
 ### `show_help`
+Atuin version: >= 17.0
 
 Configure whether or not to show the help row, which includes the current Atuin version (and whether an update is available), a keymap hint, and the total amount of commands in your history.
 
@@ -263,6 +268,7 @@ history_filter = [
 ```
 
 ### `secrets_filter`
+Atuin version: >= 17.0
 
 ```
 secrets_filter = true
@@ -287,6 +293,8 @@ ctrl_n_shortcuts = true
 ```
 
 ### `network_timeout`
+Atuin version: >= 18.0
+
 Default: 30
 
 The max amount of time (in seconds) to wait for a network request. If any
@@ -294,6 +302,8 @@ operations with a sync server take longer than this, the code will fail -
 rather than wait indefinitely.
 
 ### `network_connect_timeout`
+Atuin version: >= 18.0
+
 Default: 5
 
 The max time (in seconds) we wait for a connection to become established with a
@@ -307,6 +317,8 @@ Default: 5
 Timeout (in seconds) for acquiring a local database connection (sqlite).
 
 ### `enter_accept`
+Atuin version: >= 17.0
+
 Default: false
 
 Not supported by NuShell presently
@@ -320,6 +332,8 @@ have set `enter_accept = true` in the default config file. This is likely to
 change to be the default for everyone in a later release.
 
 ### `keymap_mode`
+Atuin version: >= 18.0
+
 Default: "emacs"
 
 The initial keymap mode of the interactive Atuin search (e.g. started by the
@@ -336,6 +350,8 @@ by NuShell at present, where it will always trigger the Atuin search with the
 keymap mode `"emacs"`.
 
 ### `keymap_cursor`
+Atuin version: >= 18.0
+
 Default: (empty dictionary)
 
 The terminal's cursor style associated with each keymap mode in the Atuin
@@ -356,6 +372,8 @@ one associated with the keymap mode corresponding to the shell's keymap on the
 termination of the Atuin search.
 
 ### `prefers_reduced_motion`
+Atuin version: >= 18.0
+
 Default: false
 
 Enable this, and Atuin will reduce motion in the TUI as much as possible. Users
@@ -391,6 +409,7 @@ common_subcommands = [
 Configures commands where we should consider the subcommand as part of the statistics. For example, consider `kubectl get` rather than just `kubectl`.
 
 ### `common_prefix`
+Atuin version: >= 17.1
 
 Default
 
