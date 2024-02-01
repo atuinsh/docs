@@ -2,10 +2,18 @@
 title: Docker
 ---
 
+:::caution
+If you are self hosting, we strongly suggest you stick to tagged releases, and do not follow `main` or `latest`
+
+Follow the GitHub releases, and please read the notes for each release. Most of the time, upgrades can occur without any manual intervention.
+
+We cannot guarantee that all updates will apply cleanly, and some may require some extra steps.
+:::
+
 There is a supplied docker image to make deploying a server as a container easier.
 
 ```sh
-docker run -d -v "$HOME/.config/atuin:/config" ghcr.io/atuinsh/atuin:latest server start
+docker run -d -v "$HOME/.config/atuin:/config" ghcr.io/atuinsh/atuin:<LATEST TAGGED RELEASE> server start
 ```
 
 # Docker Compose
@@ -27,7 +35,7 @@ version: '3.5'
 services:
   atuin:
     restart: always
-    image: ghcr.io/atuinsh/atuin:latest
+    image: ghcr.io/atuinsh/atuin:<LATEST TAGGED RELEASE>
     command: server start
     volumes:
       - "./config:/config"

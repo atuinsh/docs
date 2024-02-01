@@ -2,6 +2,14 @@
 title: Kubernetes
 ---
 
+:::caution
+If you are self hosting, we strongly suggest you stick to tagged releases, and do not follow `main` or `latest`
+
+Follow the GitHub releases, and please read the notes for each release. Most of the time, upgrades can occur without any manual intervention.
+
+We cannot guarantee that all updates will apply cleanly, and some may require some extra steps.
+:::
+
 You could host your own Atuin server using the Kubernetes platform.
 
 Create a [`secrets.yaml`](https://github.com/atuinsh/atuin/blob/main/k8s/secrets.yaml) file for the database credentials:
