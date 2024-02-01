@@ -348,6 +348,14 @@ corresponding keymap mode.  Also, the terminal's cursor style is reset to the
 one associated with the keymap mode corresponding to the shell's keymap on the
 termination of the Atuin search.
 
+### `prefers_reduced_motion`
+Default: false
+
+Enable this, and Atuin will reduce motion in the TUI as much as possible. Users
+with motion sensitivity can find the live-updting timestamps distracting.
+
+Alternatively, set env var NO_MOTION
+
 ## Stats
 This section of client config is specifically for configuring Atuin stats calculations
 
