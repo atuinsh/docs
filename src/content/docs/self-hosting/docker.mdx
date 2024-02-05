@@ -105,7 +105,7 @@ systemctl status atuin
 
 You can add another service to your `docker-compose.yml` file to have it run daily backups. It should look like this:
 
-```
+```yaml
   backup:
     container_name: atuin_db_dumper
     image: prodrigestivill/postgres-backup-local
