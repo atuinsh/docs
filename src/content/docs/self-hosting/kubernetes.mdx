@@ -26,13 +26,71 @@ stringData:
   ATUIN_HOST: "127.0.0.1"
   ATUIN_PORT: "8888"
   ATUIN_OPEN_REGISTRATION: "true"
-  ATUIN_DB_URI: "postgres://atuin:seriously-insecure@localhost/atuin"
+  ATUIN_DB_URI: "postgres://atuin:seriously-insecure@postgres/atuin"
 immutable: true
 ```
 
 Create a [`atuin.yaml`](https://github.com/atuinsh/atuin/blob/main/k8s/atuin.yaml) file for the Atuin server:
 
 ```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: atuin
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate # This is important to ensure duplicate pods don't run and cause corruption
+  selector:
+    matchLabels:
+      io.kompose.service: postgres
+  template:
+    metadata:
+      labels:
+        io.kompose.service: postgres
+    spec:
+      containers:
+        - name: postgresql
+          image: postgres:14
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: atuin
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: atuin-secrets
+                  key: ATUIN_DB_PASSWORD
+                  optional: false
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: atuin-secrets
+                  key: ATUIN_DB_USERNAME
+                  optional: false
+          lifecycle:
+            preStop:
+              exec:
+                # This ensures graceful shutdown see: https://stackoverflow.com/a/75829325/3437018
+                # Potentially consider using a `StatefulSet` instead of a `Deployment`
+                command: ["/usr/local/bin/pg_ctl stop -D /var/lib/postgresql/data -w -t 60 -m fast"]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 250m
+              memory: 600Mi
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data/
+              name: database
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: database
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -79,39 +137,7 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: atuin-claim0
-        - name: postgresql
-          image: postgres:14
-          ports:
-            - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: atuin
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: atuin-secrets
-                  key: ATUIN_DB_PASSWORD
-                  optional: false
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: atuin-secrets
-                  key: ATUIN_DB_USERNAME
-                  optional: false
-          resources:
-            limits:
-              cpu: 250m
-              memory: 1Gi
-            requests:
-              cpu: 250m
-              memory: 1Gi
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data/
-              name: database
       volumes:
-        - name: database
-          persistentVolumeClaim:
-            claimName: database
         - name: atuin-claim0
           persistentVolumeClaim:
             claimName: atuin-claim0
@@ -130,6 +156,21 @@ spec:
       nodePort: 30530
   selector:
     io.kompose.service: atuin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: postgres
+  name: postgres
+spec:
+  type: ClusterIP
+  selector:
+    io.kompose.service: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
 ---
 kind: PersistentVolume
 apiVersion: v1
@@ -186,6 +227,11 @@ metadata:
     name: atuin
 ```
 
+:::caution
+This configuration uses a `deployment` to host the PostgresDB.
+Consider using a `StatefulSet` instead as a 
+:::
+
 Note that this configuration will store the database folder _outside_ the kubernetes cluster, in the folder `/Users/firstname.lastname/.kube/database` of the host system by configuring the `storageClassName` to be `manual`. In a real enterprise setup, you would probably want to store the database content permanently in the cluster, and not in the host system.
 
 You should also change the password string in `ATUIN_DB_PASSWORD` and `ATUIN_DB_URI` in the`secrets.yaml` file to a more secure one.
@@ -202,3 +248,51 @@ Deploy the Atuin server using `kubectl`:
 ```
 
 The sample files above are also in the [k8s](../../../k8s/) folder of the atuin repository.
+
+## Creating backups of the Postgres database
+
+Now you're up and running it's a good time to think about backups. 
+
+You can create a [`CronJob`](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) which uses [`pg_dump`](https://www.postgresql.org/docs/current/app-pgdump.html) to create a backup of the database. This example runs weekly and dumps to the local disk on the node.
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: atuin-db-backup
+spec:
+  schedule: "0 0 * * 0" # Run every Sunday at midnight
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: atuin-db-backup-pg-dump
+            image: postgres:14
+            command: [
+              "/bin/bash",
+              "-c",
+              "pg_dump --host=postgres --username=atuin --format=c --file=/backup/atuin-backup-$(date +'%Y-%m-%d').pg_dump",
+            ]
+            env:
+              - name: PGPASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: atuin-secrets
+                    key: ATUIN_DB_PASSWORD
+                    optional: false
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-volume
+            hostPath:
+              path: /somewhere/on/node/for/database-backups
+              type: Directory
+```
+
+Configure/update the example `yaml` with the following:
+- Set a more or less frequent schedule with the `schedule` property.
+- Replace `/somewhere/on/node/for/database-backups` with a path on your node or reconfigure to use a `PersistentVolume` instead of `hostPath`.
+- `--format=c` ouputs a format that can be restored with `pg_restore`. Use [`plain`](https://www.postgresql.org/docs/current/app-pgdump.html) if you want `.sql` files outputted instead.
