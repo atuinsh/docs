@@ -436,3 +436,17 @@ common_prefix = [
 ```
 
 Configures commands that should be totally stripped from stats calculations. For example, 'sudo' should be ignored.
+
+## keys
+This section of client config is specifically for configuring key-related settings.
+
+```toml
+[stats]
+scroll_exits = [...]
+```
+
+### `scroll_exits`
+
+Default: true
+
+Configures whether the TUI exits, when scrolled past the last or first entry.
