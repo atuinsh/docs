@@ -1,0 +1,26 @@
+---
+title: text user interface (TUI)
+---
+
+Atuin's text user interface.
+
+# Configuration
+
+There is limited support for customizing these via the [config](/configuration/config).
+
+# Default keybindings.
+
+The code for this lives in [atuin/src/command/client/search/interactive.rs](https://github.com/atuinsh/atuin/blob/main/atuin/src/command/client/search/interactive.rs)
+
+## All modes
+
+ * esc, ctrl-c, ctrl-g, ctrl-[: quit without choosing anything
+ * tab: accept command but allow for editing
+ * ctrl-o: inspect the currently selected command.
+
+## Search mode.
+
+Basic readline keybindings are supported (ctrl-b, ctrl-a, ctrl-e, etc).
+
+ * ctrl-r: Change filter mode between Global, Host, Session, Directory, and Workspace.
+ * ctrl-s: Change search mode.
