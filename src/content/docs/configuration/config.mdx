@@ -269,6 +269,20 @@ history_filter = [
 ]
 ```
 
+### `cwd_filter`
+
+The cwd filter allows you to exclude directories from history tracking. 
+
+This supports regular expressions, so you can hide pretty much whatever you want!
+
+```
+## Note that these regular expressions are unanchored, i.e. if they don't start
+## with ^ or end with $, they'll match anywhere in the command.
+# cwd_filter = [
+#   "^/very/secret/directory",
+# ]
+```
+
 After updating that parameter, you can run [the prune command](/reference/prune/) to remove old history entries that match the new filters.
 
 ### `secrets_filter`
