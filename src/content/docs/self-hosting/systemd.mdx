@@ -1,0 +1,75 @@
+---
+title: Systemd
+---
+
+Setting up Atuin with Systemd directly has the benefit of being the conceptually simplest of
+methods to host your own server. Also, you will be able to use the distribution's package manager
+for distributions that ship Atuin. In fact, if you use a distribution that ships Atuin, chances are
+the Systemd setup for it is already installed for you alongside the packages and you don't have to
+manually create the files.
+
+First, create the service unit file
+[`atuin.service`](https://github.com/atuinsh/atuin/raw/main/systemd/atuin.service) at
+`/etc/systemd/system/atuin.service` with contents like this:
+
+```ini
+[Unit]
+Description=Start the Atuin syncing service
+
+[Service]
+ExecStart=atuin server start
+Restart=on-failure
+User=atuin
+EnvironmentFile=/etc/default/atuin
+PrivateTmp=yes
+PrivateUsers=yes
+PrivateDevices=yes
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=yes
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectProc=invisible
+
+[Install]
+WantedBy=multi-user.target
+```
+
+This is the official Atuin service unit file which includes a lot of hardening options to increase
+security.
+
+Next, create [`atuin.conf`](https://github.com/atuinsh/atuin/raw/main/systemd/atuin.sysusers) at
+`/etc/sysusers.d/atuin.conf` with contents like this:
+
+```
+u atuin - "Atuin synchronized shell history"
+```
+This file will ensure a system user is created in the proper manner.
+
+Afterwards, run
+```sh
+systemctl restart systemd-sysusers
+```
+to make sure the file is read. A new `atuin` user should then be available.
+
+Lastly, create [`atuin.defaults`](https://github.com/atuinsh/atuin/raw/main/systemd/atuin.defaults)
+at `/etc/defaults/atuin` with these contents:
+
+```ini
+ATUIN_HOST="0.0.0.0"
+ATUIN_PORT=8888
+ATUIN_OPEN_REGISTRATION=true
+ATUIN_DB_URI="postgres://user:password@hostname/database"
+```
+
+Now, you can attempt to run atuin:
+```sh
+systemctl enable --now atuin
+```
+
+```sh
+systemctl status atuin
+```
