@@ -20,9 +20,9 @@ docker run -d -v "$HOME/.config/atuin:/config" ghcr.io/atuinsh/atuin:<LATEST TAG
 
 Using the already build docker image hosting your own Atuin can be done using the supplied docker-compose file.
 
-Create a `.env` file next to `docker-compose.yml` with contents like this:
+Create a `.env` file next to [`docker-compose.yml`](https://github.com/atuinsh/atuin/raw/main/docker-compose.yml) with contents like this:
 
-```
+```ini
 ATUIN_DB_NAME=atuin
 ATUIN_DB_USERNAME=atuin
 # Choose your own secure password
@@ -70,7 +70,7 @@ docker compose up -d
 
 The following `systemd` unit file to manage your `docker-compose` managed service:
 
-```
+```ini
 [Unit]
 Description=Docker Compose Atuin Service
 Requires=docker.service
