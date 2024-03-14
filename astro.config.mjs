@@ -63,6 +63,7 @@ export default defineConfig({
             { label: 'Usage', link: '/self-hosting/usage' },
             { label: 'Docker', link: '/self-hosting/docker' },
             { label: 'Kubernetes', link: '/self-hosting/kubernetes' },
+            { label: 'Systemd', link: '/self-hosting/systemd' },
           ],
         },
         { label: 'Known issues', link: '/known-issues' },
