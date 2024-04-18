@@ -250,9 +250,11 @@ exit_mode = "return-query"
 
 ### `history_format`
 
-The history format allows you to configure the default history list format - which can also be specified with the --format arg.
+The history format allows you to configure the default `history list` format - which can also be specified with the --format arg.
 
 The specified --format arg will prioritize the config when both are present
+
+More on [history list](https://docs.atuin.sh/reference/list/)
 
 ### `history_filter`
 
@@ -267,6 +269,20 @@ history_filter = [
    "^secret-cmd",
    "^innocuous-cmd .*--secret=.+"
 ]
+```
+
+### `cwd_filter`
+
+The cwd filter allows you to exclude directories from history tracking. 
+
+This supports regular expressions, so you can hide pretty much whatever you want!
+
+```
+## Note that these regular expressions are unanchored, i.e. if they don't start
+## with ^ or end with $, they'll match anywhere in the command.
+# cwd_filter = [
+#   "^/very/secret/directory",
+# ]
 ```
 
 After updating that parameter, you can run [the prune command](/reference/prune/) to remove old history entries that match the new filters.
@@ -436,6 +452,49 @@ common_prefix = [
 ```
 
 Configures commands that should be totally stripped from stats calculations. For example, 'sudo' should be ignored.
+
+## sync
+We have developed a new version of sync, that is both faster and more efficient than the original version.
+
+Presently, it is the default for fresh installs but not for existing users. This will change in a later release.
+
+To enable sync v2, add the following to your config
+
+```
+[sync]
+records = true
+```
+
+## `dotfiles`
+Atuin version: >= 18.1
+
+Default: false
+
+To enable sync of shell aliases between hosts. Requires `sync` enabled.
+
+Add the new section to the bottom of your config file, for every machine you use Atuin with
+
+```
+[dotfiles]
+enabled = true
+```
+
+Note: you will need to have sync v2 enabled. See the above section.
+
+Manage aliases using the command line options
+
+```
+# Alias 'k' to 'kubectl'
+atuin dotfiles alias set k kubectl
+
+# List all aliases
+atuin dotfiles alias list
+
+# Delete an alias
+atuin dotfiles alias delete k
+```
+
+After setting an alias, you will either need to restart your shell or source the init file for the change to take affect
 
 ## keys
 This section of client config is specifically for configuring key-related settings.

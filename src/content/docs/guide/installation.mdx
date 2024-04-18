@@ -2,223 +2,213 @@
 title: Installation
 ---
 
-import {Tabs, TabItem, LinkCard} from "@astrojs/starlight/components";
+import {Aside, Tabs, TabItem, LinkCard} from "@astrojs/starlight/components";
 
-Let's get started! First up, you will want to install Atuin. We have an install
-script which handles most of the commonly used platforms and package managers.
+## Recommended installation approach
+
+Let's get started! First up, you will want to install Atuin.
+The recommended approach is to use the installation script,
+ which automatically handles the installation of Atuin
+ including the requirements for your environment.
 It will do its best to use your system package manager wherever possible.
 
 <Tabs>
   <TabItem label="bash/zsh">
-  ```bash
+  ```shell
   bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
   ```
   </TabItem>
 
   <TabItem label="fish">
-  ```bash
+  ```shell
   bash (curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh | psub)
   ```
   </TabItem>
 </Tabs>
 
-
 <LinkCard
-  title="Setup sync"
-  description="Move on to the next step, or read on for a manual install"
-  href="/guide/sync/"
+    title="Setup sync"
+    description="Move on to the next step, or read on to manually install Atuin instead."
+    href="/guide/sync/"
 />
 
-## Upgrading
+## Manual installation
 
-In order to upgrade Atuin, just run the install script again! It won't add to
+### Installing the binary
+
+If you don't wish to use the installer, the manual installation steps are as follows.
+
+<Tabs>
+    <TabItem label="Cargo">
+        It's best to use [rustup](https://rustup.rs/) to get setup with a Rust
+        toolchain, then you can run:
+
+        ```shell
+        cargo install atuin
+        ```
+    </TabItem>
+    <TabItem label="Homebrew">
+        ```shell
+        brew install atuin
+        ```
+    </TabItem>
+    <TabItem label="MacPorts">
+        Atuin is also available in [MacPorts](https://ports.macports.org/port/atuin/)
+
+        ```shell
+        sudo port install atuin
+        ```
+    </TabItem>
+    <TabItem label="Nix">
+        This repository is a flake, and can be installed using `nix profile`:
+
+        ```shell
+        nix profile install "github:atuinsh/atuin"
+        ```
+
+        Atuin is also available in [nixpkgs](https://github.com/NixOS/nixpkgs):
+
+        ```shell
+        nix-env -f '<nixpkgs>' -iA atuin
+        ```
+    </TabItem>
+    <TabItem label="Pacman">
+        Atuin is available in the Arch Linux [extra repository](https://archlinux.org/packages/extra/x86_64/atuin/):
+
+        ```shell
+        pacman -S atuin
+        ```
+    </TabItem>
+    <TabItem label="XBPS">
+        Atuin is available in the Void Linux [repository](https://github.com/void-linux/void-packages/tree/master/srcpkgs/atuin):
+
+        ```shell
+        sudo xbps-install atuin
+        ```
+    </TabItem>
+    <TabItem label="Termux">
+        Atuin is available in the Termux package repository:
+
+        ```shell
+        pkg install atuin
+        ```
+    </TabItem>
+    <TabItem label="Source">
+        Atuin builds on the latest stable version of Rust, and we make no
+        promises regarding older versions. We recommend using [rustup](https://rustup.rs/).
+
+        ```shell
+        git clone https://github.com/atuinsh/atuin.git
+        cd atuin/atuin
+        cargo install --path .
+        ```
+    </TabItem>
+</Tabs>
+
+<Aside type="caution" title="Please be advised">
+    If you choose to manually install Atuin rather than using the recommended installation script,
+    merely installing the binary is not sufficient, you should also set up the shell plugin.
+</Aside>
+
+---
+
+### Installing the shell plugin
+
+Once the binary is installed, the shell plugin requires installing.
+If you use the install script, this should all be done for you!
+After installing, remember to restart your shell.
+
+<Tabs>
+    <TabItem label="zsh">
+        ```shell
+        echo 'eval "$(atuin init zsh)"' >> ~/.zshrc
+        ```
+
+        <Tabs>
+            <TabItem label="zinit">
+                ```shell
+                zinit load atuinsh/atuin
+                ```
+            </TabItem>
+            <TabItem label="Antigen">
+                ```shell
+                antigen bundle atuinsh/atuin@main
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem label="bash">
+        <Tabs>
+            <TabItem label="ble.sh">
+                Atuin works best in bash when using [ble.sh](https://github.com/akinomyoga/ble.sh).
+
+                With ble.sh installed, just add atuin to your .bashrc
+
+                ```shell
+                echo 'eval "$(atuin init bash)"' >> ~/.bashrc
+                ```
+            </TabItem>
+            <TabItem label="bash-preexec">
+                [Bash-preexec](https://github.com/rcaloras/bash-preexec) can also be used, but you may experience
+                 some minor problems with the recorded duration and exit status of some commands.
+
+                <Aside type="caution" title="Please note">
+                    bash-preexec currently has an issue where it will stop honoring `ignorespace`.
+                    While Atuin will ignore commands prefixed with whitespace, they may still end up in your bash history.
+                    Please check your configuration! All other shells do not have this issue.
+                </Aside>
+
+                To use bash-preexec, download and initialize it
+
+                ```shell
+                curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh -o ~/.bash-preexec.sh
+                echo '[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh' >> ~/.bashrc
+                ```
+
+                Then setup Atuin
+
+                ```shell
+                echo 'eval "$(atuin init bash)"' >> ~/.bashrc
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem label="fish">
+        Add
+
+        ```shell
+        atuin init fish | source
+        ```
+
+        to your `is-interactive` block in your `~/.config/fish/config.fish` file
+    </TabItem>
+    <TabItem label="Nushell">
+        Run in *Nushell*:
+
+        ```shell
+        mkdir ~/.local/share/atuin/
+        atuin init nu | save ~/.local/share/atuin/init.nu
+        ```
+
+        Add to `config.nu`:
+
+        ```shell
+        source ~/.local/share/atuin/init.nu
+        ```
+    </TabItem>
+    <TabItem label="xonsh">
+        Add
+        ```shell
+        execx($(atuin init xonsh))
+        ```
+        to the end of your `~/.xonshrc`
+    </TabItem>
+</Tabs>
+
+## Upgrade
+
+In order to upgrade Atuin, just run the installation script again! It won't add to
 your shell config more than once, so is safe to re-run.
-
-Otherwise, defer to the below.
-
----
-
-## Manual install
-
-If you don't wish to use the installer, the manual steps are as follows. Please
-note that it's not enough to install the binary, there is also a shell plugin
-that requires settings up.
-
-#### cargo
-
-It's best to use [rustup](https://rustup.rs/) to get setup with a Rust
-toolchain, then you can run:
-
-```
-cargo install atuin
-```
-  
-And then follow [the shell setup](#shell-plugin)
-
-#### Homebrew
-
-```
-brew install atuin
-```
-  
-And then follow [the shell setup](#shell-plugin)
-  
-#### MacPorts
-
-Atuin is also available in [MacPorts](https://ports.macports.org/port/atuin/)  
-  
-```
-sudo port install atuin
-```
-  
-And then follow [the shell setup](#shell-plugin)
-
-#### Nix
-
-This repository is a flake, and can be installed using `nix profile`:
-
-```
-nix profile install "github:atuinsh/atuin"
-```
-
-Atuin is also available in [nixpkgs](https://github.com/NixOS/nixpkgs):
-
-```
-nix-env -f '<nixpkgs>' -iA atuin
-```
-
-And then follow [the shell setup](#shell-plugin)
-#### Pacman
-
-Atuin is available in the Arch Linux [extra repository](https://archlinux.org/packages/extra/x86_64/atuin/):
-
-```
-pacman -S atuin
-```
-  
-And then follow [the shell setup](#shell-plugin)
-
-#### Xbps
-
-Atuin is available in the Void Linux [repository](https://github.com/void-linux/void-packages/tree/master/srcpkgs/atuin):
-
-```
-sudo xbps-install atuin
-```
-
-And then follow [the shell setup](#shell-plugin)
-
-#### Termux
-
-Atuin is available in the Termux package repository:
-
-```
-pkg install atuin
-```
-  
-And then follow [the shell setup](#shell-plugin)
-
-#### From source
-
-Note: Atuin builds on the latest stable version of Rust, and we make no
-promises regarding older versions. We recommend using rustup.
-
-```
-git clone https://github.com/atuinsh/atuin.git
-cd atuin/atuin
-cargo install --path .
-```
-
----
-
-## Shell plugin
-
-Once the binary is installed, the shell plugin requires installing. If you use
-the install script, this should all be done for you! After installing, remember to restart your shell.
-
-#### zsh
-
-```
-echo 'eval "$(atuin init zsh)"' >> ~/.zshrc
-```
-
-##### Zinit
-
-```sh
-zinit load atuinsh/atuin
-```
-
-##### Antigen  
-  
-```sh  
-antigen bundle atuinsh/atuin@main
-```
-
-#### bash
-
-##### [ble.sh](https://github.com/akinomyoga/ble.sh)
-
-Atuin works best in bash when using [ble.sh](https://github.com/akinomyoga/ble.sh).
-
-With ble.sh installed, just add atuin to your .bashrc
-
-```bash
-echo 'eval "$(atuin init bash)"' >> ~/.bashrc
-```
-
-##### [bash-preexec](https://github.com/rcaloras/bash-preexec)
-
-[Bash-preexec](https://github.com/rcaloras/bash-preexec) can also be used, but you may experience some minor problems with the recorded duration and exit status of some commands.
-
-To use bash-preexec, download and initialize it
-
-```bash
-curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh -o ~/.bash-preexec.sh
-echo '[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh' >> ~/.bashrc
-```
-
-Then setup Atuin
-
-```bash
-echo 'eval "$(atuin init bash)"' >> ~/.bashrc
-```
-
-**PLEASE NOTE**
-
-bash-preexec currently has an issue where it will stop honoring `ignorespace`. While Atuin will ignore commands prefixed with whitespace, they may still end up in your bash history. Please check your configuration! All other shells do not have this issue.
-
-#### fish
-
-Add
-
-```
-atuin init fish | source
-```
-
-to your `is-interactive` block in your `~/.config/fish/config.fish` file
-  
-#### Nushell
-
-Run in *Nushell*:
-
-```
-mkdir ~/.local/share/atuin/
-atuin init nu | save ~/.local/share/atuin/init.nu
-```
-
-Add to `config.nu`:
-
-```
-source ~/.local/share/atuin/init.nu
-```
-
-#### xonsh
-
-Add
-```
-execx($(atuin init xonsh))
-```
-to the end of your `~/.xonshrc`
 
 ## Uninstall
 
