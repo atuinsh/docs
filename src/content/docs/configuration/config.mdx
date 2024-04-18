@@ -513,7 +513,7 @@ atuin dotfiles alias delete k
 After setting an alias, you will either need to restart your shell or source the init file for the change to take affect
 
 ## keys
-This section of client config is specifically for configuring key-related settings.
+This section of the client config is specifically for configuring key-related settings.
 
 ```toml
 [keys]
@@ -526,3 +526,24 @@ Atuin version: >= 18.1
 Default: true
 
 Configures whether the TUI exits, when scrolled past the last or first entry.
+
+## preview
+This section of the client config is specifically for configuring preview-related settings.
+(In the future the other 2 preview settings will be moved here.)
+
+```toml
+[preview]
+strategy = [...]
+```
+
+### `strategy`
+Atuin version: >= 18.x
+
+Which preview strategy is used to calculate the preview height. It respects `max_preview_height`.
+
+| Value          | Preview height is calculated from the length of the |
+|----------------|-----------------------------------------------------|
+| auto (default) | selected command                                    |
+| static         | longest command stored in the history               |
+
+By using `auto` a preview is shown, iff the command is longer than the width of the terminal.
