@@ -273,7 +273,7 @@ history_filter = [
 
 ### `cwd_filter`
 
-The cwd filter allows you to exclude directories from history tracking. 
+The cwd filter allows you to exclude directories from history tracking.
 
 This supports regular expressions, so you can hide pretty much whatever you want!
 
@@ -496,3 +496,17 @@ atuin dotfiles alias delete k
 
 After setting an alias, you will either need to restart your shell or source the init file for the change to take affect
 
+## keys
+This section of client config is specifically for configuring key-related settings.
+
+```toml
+[keys]
+scroll_exits = [...]
+```
+
+### `scroll_exits`
+Atuin version: >= 18.1
+
+Default: true
+
+Configures whether the TUI exits, when scrolled past the last or first entry.
