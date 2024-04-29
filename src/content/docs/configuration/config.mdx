@@ -294,6 +294,15 @@ This supports regular expressions, so you can hide pretty much whatever you want
 
 After updating that parameter, you can run [the prune command](/reference/prune/) to remove old history entries that match the new filters.
 
+### `store_failed`
+Atuin version: >= 18.3.0
+
+```
+store_failed = true
+```
+
+Defaults to true. Configures whether to store commands that failed (those with non-zero exit status) or not.
+
 ### `secrets_filter`
 Atuin version: >= 17.0
 
