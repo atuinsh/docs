@@ -3,14 +3,14 @@ title: Docker
 ---
 
 :::caution
-If you are self hosting, we strongly suggest you stick to tagged releases, and do not follow `main` or `latest`
+If you are self hosting, we strongly suggest you stick to [tagged releases](https://github.com/atuinsh/atuin/releases), and do not follow `main` or `latest`
 
 Follow the GitHub releases, and please read the notes for each release. Most of the time, upgrades can occur without any manual intervention.
 
 We cannot guarantee that all updates will apply cleanly, and some may require some extra steps.
 :::
 
-There is a supplied docker image to make deploying a server as a container easier.
+There is a supplied docker image to make deploying a server as a container easier. The "LATEST TAGGED RELEASE" can be found on the [releases page](https://github.com/atuinsh/atuin/releases).
 
 ```sh
 docker run -d -v "$HOME/.config/atuin:/config" ghcr.io/atuinsh/atuin:<LATEST TAGGED RELEASE> server start
