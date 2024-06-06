@@ -537,13 +537,13 @@ strategy = [...]
 ```
 
 ### `strategy`
-Atuin version: >= 18.x
+Atuin version: >= 18.3
 
 Which preview strategy is used to calculate the preview height. It respects `max_preview_height`.
 
 | Value          | Preview height is calculated from the length of the |
 |----------------|-----------------------------------------------------|
 | auto (default) | selected command                                    |
-| static         | longest command stored in the history               |
+| static         | longest command in the current result set           |
 
 By using `auto` a preview is shown, iff the command is longer than the width of the terminal.
