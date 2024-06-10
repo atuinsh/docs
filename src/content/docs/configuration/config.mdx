@@ -526,3 +526,49 @@ Atuin version: >= 18.1
 Default: true
 
 Configures whether the TUI exits, when scrolled past the last or first entry.
+
+## Daemon
+Atuin version: >= 18.3
+
+Default: false
+
+Enable the background daemon
+
+Add the new section to the bottom of your config file
+
+```
+[daemon]
+enabled = true
+```
+
+### sync_frequency
+
+How often the daemon should sync, in seconds
+
+```
+sync_frequency = 300
+```
+
+### socket_path
+
+Where to bind a unix socket for client -> daemon communication
+
+```
+socket_path = "~/.local/share/atuin/atuin.sock"
+```
+
+### systemd_socket
+
+Use a socket passed via systemd socket activation protocol instead of the path
+
+```
+systemd_socket = false
+```
+
+### tcp_port
+
+The port to use for client -> daemon communication. Only used on non-unix systems.
+
+```
+systemd_socket = false
+```
