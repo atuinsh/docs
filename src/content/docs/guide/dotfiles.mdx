@@ -86,7 +86,53 @@ You can list all aliases with:
 atuin dotfiles alias list
 ```
 
-## Syncing and backing up aliases
+## Env vars
+
+After creating or deleting an env var, remember to restart your shell! 
+
+### Creating a var 
+
+```
+atuin dotfiles var set NAME 'value'
+```
+
+For example, to set `FOO` to be `bar`
+
+
+```
+atuin dotfiles var set FOO 'bar'
+```
+
+Vars are exported by default, but you can create a shell var like so
+
+```
+atuin dotfiles var set -n foo 'bar'
+```
+
+
+### Deleting a var
+
+Deleting a var is as simple as:
+
+```
+atuin dotfiles var delete NAME
+```
+
+For example, to delete the above var `FOO`:
+
+```
+atuin dotfiles var delete FOO
+```
+
+### Listing vars
+
+You can list all vars with:
+
+```
+atuin dotfiles var list
+```
+
+## Syncing and backing up dotfiles
 If you have [setup sync](/guide/sync), then running 
 
 ```
