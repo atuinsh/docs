@@ -547,3 +547,49 @@ Which preview strategy is used to calculate the preview height. It respects `max
 | static         | longest command in the current result set           |
 
 By using `auto` a preview is shown, iff the command is longer than the width of the terminal.
+
+## Daemon
+Atuin version: >= 18.3
+
+Default: false
+
+Enable the background daemon
+
+Add the new section to the bottom of your config file
+
+```
+[daemon]
+enabled = true
+```
+
+### sync_frequency
+
+How often the daemon should sync, in seconds
+
+```
+sync_frequency = 300
+```
+
+### socket_path
+
+Where to bind a unix socket for client -> daemon communication
+
+```
+socket_path = "~/.local/share/atuin/atuin.sock"
+```
+
+### systemd_socket
+
+Use a socket passed via systemd socket activation protocol instead of the path
+
+```
+systemd_socket = false
+```
+
+### tcp_port
+
+The port to use for client -> daemon communication. Only used on non-unix systems.
+
+```
+tcp_port = 8889
+```
