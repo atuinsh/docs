@@ -6,7 +6,7 @@ Atuin search supports wildcards, with either the `*` or `%` character. By
 default, a prefix search is performed (ie, all queries are automatically
 appended with a wildcard).
 
-| Arg &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| Description |
+| Arg                  | Description                                                                   |
 | -------------------- | ----------------------------------------------------------------------------- |
 | `--cwd`/`-c`         | The directory to list history for (default: all dirs)                         |
 | `--exclude-cwd`      | Do not include commands that ran in this directory (default: none)            |
