@@ -179,7 +179,6 @@ $env.config = (
 | ctrl + n / ctrl + j / ⬆                  | Select the next item on the list                                              |
 | ctrl + p / ctrl + k / ⬇                  | Select the previous item on the list                                          |
 | ctrl + o                                  | Open the inspector                                                            |
-| ctrl + d                                  | Delete the item from the databse. Available only AFTER ctrl + o to inspect     |
 | page down                                 | Scroll search results one page down                                           |
 | page up                                   | Scroll search results one page up                                             |
 | ⬇ (with no entry selected)               | Return original or return query depending on [settings](/configuration/config/#exit_mode)                         |
@@ -198,7 +197,10 @@ If [vim is enabled in the config](https://docs.atuin.sh/configuration/config/#vi
 
 
 ### Inspector
+Open the inspector with ctrl-o 
+
 | Shortcut | Action                                        |
+| -------- | --------------------------------------------- |
 | Esc      | Close the inspector, returning to the shell   |
 | ctrl+o   | Close the inspector, returning to search view |
 | ctrl+d   | Delete the inspected item from the history    |
