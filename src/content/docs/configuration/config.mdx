@@ -1,4 +1,4 @@
----
+---config
 title: Config
 ---
 
@@ -518,6 +518,7 @@ This section of the client config is specifically for configuring key-related se
 ```toml
 [keys]
 scroll_exits = [...]
+prefix = 'a'
 ```
 
 ### `scroll_exits`
@@ -526,6 +527,13 @@ Atuin version: >= 18.1
 Default: true
 
 Configures whether the TUI exits, when scrolled past the last or first entry.
+
+### `prefix`
+Atuin version: > 18.3
+
+Default: 'a'
+
+Which key to use as the prefix
 
 ## preview
 This section of the client config is specifically for configuring preview-related settings.
