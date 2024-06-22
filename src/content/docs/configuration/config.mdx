@@ -122,7 +122,7 @@ A single bar character term acts as an OR operator. For example, the following
 query matches entries that start with `core` and end with either `go`, `rb`,
 or `py`.
 
-```toml
+```
 ^core go$ | rb$ | py$
 ```
 
@@ -435,7 +435,7 @@ Alternatively, set env var NO_MOTION
 ## Stats
 This section of client config is specifically for configuring Atuin stats calculations
 
-```toml
+```
 [stats]
 common_subcommands = [...]
 common_prefix = [...]
@@ -527,7 +527,7 @@ After setting an alias, you will either need to restart your shell or source the
 ## keys
 This section of the client config is specifically for configuring key-related settings.
 
-```toml
+```
 [keys]
 scroll_exits = [...]
 prefix = 'a'
@@ -551,7 +551,7 @@ Which key to use as the prefix
 This section of the client config is specifically for configuring preview-related settings.
 (In the future the other 2 preview settings will be moved here.)
 
-```toml
+```
 [preview]
 strategy = [...]
 ```
