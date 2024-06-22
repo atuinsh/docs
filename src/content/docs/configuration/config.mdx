@@ -232,7 +232,7 @@ Useful when the command is longer than the terminal width and is cut off.
 ### `max_preview_height`
 Atuin version: >= 17.0
 
-Defaults: `4`
+Default: `4`
 
 Configure the maximum height of the preview to show.
 
@@ -241,18 +241,20 @@ Useful when you have long scripts in your history that you want to distinguish b
 ### `show_help`
 Atuin version: >= 17.0
 
-Defaults: `true`
+Default: `true`
 
 Configure whether or not to show the help row, which includes the current Atuin version (and whether an update is available), a keymap hint, and the total amount of commands in your history.
 
 ### `show_tabs`
 Atuin version: >= 18.0
 
-Defaults: `true`
+Default: `true`
 
 Configure whether or not to show tabs for search and inspect.
 
 ### `exit_mode`
+Default: `return-original` 
+
 What to do when the escape key is pressed when searching
 
 | Value                     | Behaviour                                                        |
@@ -307,7 +309,7 @@ After updating that parameter, you can run [the prune command](/reference/prune/
 ### `store_failed`
 Atuin version: >= 18.3.0
 
-Defaults: `true`
+Default: `true`
 
 ```toml
 store_failed = true
@@ -334,7 +336,7 @@ This matches history against a set of default regex, and will not save it if we 
 7. Cloud environment variable patterns (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AZURE_STORAGE_CLASS_KEY`, `GOOGLE_SERVICE_ACCOUNT_KEY`)
 
 ### macOS <kbd>Ctrl-n</kbd> key shortcuts
-Defaults: `true`
+Default: `true`
 
 macOS does not have an <kbd>Alt</kbd> key, although terminal emulators can often be configured to map the <kbd>Option</kbd> key to be used as <kbd>Alt</kbd>. *However*, remapping <kbd>Option</kbd> this way may prevent typing some characters, such as using <kbd>Option-3</kbd> to type `#` on the British English layout. For such a scenario, set the `ctrl_n_shortcuts` option to `true` in your config file to replace <kbd>Alt-0</kbd> to <kbd>Alt-9</kbd> shortcuts with <kbd>Ctrl-0</kbd> to <kbd>Ctrl-9</kbd> instead:
 
@@ -346,7 +348,7 @@ ctrl_n_shortcuts = true
 ### `network_timeout`
 Atuin version: >= 18.0
 
-Defaults: `30`
+Default: `30`
 
 The max amount of time (in seconds) to wait for a network request. If any
 operations with a sync server take longer than this, the code will fail -
