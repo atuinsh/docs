@@ -20,8 +20,6 @@ pnpm-debug.log*
 .DS_Store
 
 # lock files
-package-lock.json
-yarn.lock
 
 # swap vim files
 *.swp
