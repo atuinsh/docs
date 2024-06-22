@@ -19,8 +19,6 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# lock files
-
 # swap vim files
 *.swp
 *.swo
