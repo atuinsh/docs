@@ -14,19 +14,9 @@ installation of Atuin including the requirements for your environment.
 It will install a binary to `~/.atuin/bin`, and if you'd rather do something else 
 then the manual steps below offer much more flexibility.
 
-<Tabs>
-  <TabItem label="bash/zsh">
-  ```shell
-  bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
-  ```
-  </TabItem>
-
-  <TabItem label="fish">
-  ```shell
-  bash (curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh | psub)
-  ```
-  </TabItem>
-</Tabs>
+```shell
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+```
 
 <LinkCard
     title="Setup sync"
