@@ -4,7 +4,13 @@ title: Uninstalling Atuin
 
 Sorry to see you go!
 
-Uninstalling Atuin depends on your system, and how you installed it. Wherever possible, our install script will use your system package manager.
+If you used the Atuin installer, you can totally delete it by removing the following
+
+1. Delete the ~/.atuin directory
+2. Delete the ~/.local/share/atuin directory
+3. Remove the line referencing "atuin init" from your shell config
+
+Otherwise, uninstalling Atuin depends on your system, and how you installed it. 
 
 EG, on macOS, you'd want to run
 
@@ -12,4 +18,4 @@ EG, on macOS, you'd want to run
 brew uninstall atuin
 ```
 
-There is also a shell integration that you will need to remove from your shell config file. Find the line referencing `atuin init` , and remove it.
+and then remove the shell integration.
