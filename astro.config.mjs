@@ -48,6 +48,7 @@ export default defineConfig({
             { label: 'Import existing history', link: '/guide/import' },
             { label: 'Basic usage', link: '/guide/basic-usage' },
             { label: 'Syncing dotfiles', link: '/guide/dotfiles' },
+            { label: 'Theming', link: '/guide/theming' },
           ],
         },
         {
