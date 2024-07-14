@@ -10,9 +10,9 @@ The full path to the config file would be `~/.config/atuin/config.toml`
 The config location can be overridden with ATUIN_CONFIG_DIR
 
 ### `db_path`
-Default: `~/.local/share/atuin/history.db` 
+Default: `~/.local/share/atuin/history.db`
 
-The path to the Atuin SQLite database. 
+The path to the Atuin SQLite database.
 
 ```toml
 db_path = "~/.history.db"
@@ -30,7 +30,7 @@ key_path = "~/.atuin-key"
 ### `session_path`
 Default: `~/.local/share/atuin/session`
 
-The path to the Atuin server session file. 
+The path to the Atuin server session file.
 This is essentially just an API token
 
 ```toml
@@ -38,7 +38,7 @@ session_path = "~/.atuin-session"
 ```
 
 ### `dialect`
-Default: `us` 
+Default: `us`
 
 This configures how the [stats](/reference/stats/) command parses dates. It has two
 possible values
@@ -54,9 +54,9 @@ dialect = "us"
 ```
 
 ### `auto_sync`
-Default: `true` 
+Default: `true`
 
-Configures whether or not to automatically sync, when logged in. 
+Configures whether or not to automatically sync, when logged in.
 
 ```toml
 auto_sync = true/false
@@ -65,7 +65,7 @@ auto_sync = true/false
 ### `update_check`
 Default: `true`
 
-Configures whether or not to automatically check for updates. 
+Configures whether or not to automatically check for updates.
 
 ```toml
 update_check = true/false
@@ -74,7 +74,7 @@ update_check = true/false
 ### `sync_address`
 Default: `https://api.atuin.sh`
 
-The address of the server to sync with! 
+The address of the server to sync with!
 
 ```toml
 sync_address = "https://api.atuin.sh"
@@ -84,7 +84,7 @@ sync_address = "https://api.atuin.sh"
 Default: `1h`
 
 How often to automatically sync with the server. This can be given in a
-"human-readable" format. For example, `10s`, `20m`, `1h`, etc. 
+"human-readable" format. For example, `10s`, `20m`, `1h`, etc.
 
 If set to `0`, Atuin will sync after every command. Some servers may potentially
 rate limit, which won't cause any issues.
@@ -136,7 +136,7 @@ The default filter to use when searching
 | global (default) | Search history from all hosts, all sessions, all directories |
 | host             | Search history just from this host                           |
 | session          | Search history just from the current session                 |
-| directory        | Search history just from the current directory               |
+| directory        | Search history just from the current directory (global)      |
 
 Filter modes can still be toggled via ctrl-r
 
@@ -178,7 +178,7 @@ Atuin version: >= 17.0
 Default: `false`
 
 This flag enables a pseudo filter-mode named "workspace": the filter is automatically
-activated when you are in a git repository. 
+activated when you are in a git repository.
 
 With workspace filtering enabled, Atuin will filter for commands executed in any directory
 within a git repository tree.
@@ -205,7 +205,7 @@ Atuin version: >= 17.0
 
 Default: `false`
 
-Invert the UI - put the search bar at the top. 
+Invert the UI - put the search bar at the top.
 
 ```toml
 invert = true/false
@@ -253,7 +253,7 @@ Default: `true`
 Configure whether or not to show tabs for search and inspect.
 
 ### `exit_mode`
-Default: `return-original` 
+Default: `return-original`
 
 What to do when the escape key is pressed when searching
 
@@ -444,7 +444,7 @@ common_prefix = [...]
 ```
 
 ### `common_subcommands`
-Default: 
+Default:
 
 ```toml
 common_subcommands = [
@@ -596,7 +596,7 @@ sync_frequency = 300
 ```
 
 ### socket_path
-Default: 
+Default:
 ```toml
 socket_path = "~/.local/share/atuin/atuin.sock"
 ```
