@@ -136,7 +136,7 @@ After installing, remember to restart your shell.
             <TabItem label="ble.sh">
                 Atuin works best in bash when using [ble.sh](https://github.com/akinomyoga/ble.sh).
 
-                With ble.sh installed, just add atuin to your .bashrc
+                With ble.sh installed and loaded in `~/.bashrc`, just add atuin to your `~/.bashrc`
 
                 ```shell
                 echo 'eval "$(atuin init bash)"' >> ~/.bashrc
@@ -150,6 +150,14 @@ After installing, remember to restart your shell.
                     bash-preexec currently has an issue where it will stop honoring `ignorespace`.
                     While Atuin will ignore commands prefixed with whitespace, they may still end up in your bash history.
                     Please check your configuration! All other shells do not have this issue.
+
+                    To use Atuin in `bash < 4` with bash-preexec, the option `enter_accept` needs
+                    to be turned on (which is so by default).
+
+                    bash-preexec cannot properly invoke the `preexec` hook for subshell commands
+                    `(...)`, function definitions `func() { ...; }`, empty for-in-statements `for
+                    i in; do ...; done`, etc., so those commands and duration may not be recorded
+                    in the Atuin's history correctly.
                 </Aside>
 
                 To use bash-preexec, download and initialize it
