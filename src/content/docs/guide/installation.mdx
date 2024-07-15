@@ -87,6 +87,19 @@ If you don't wish to use the installer, the manual installation steps are as fol
         pkg install atuin
         ```
     </TabItem>
+    <TabItem label="zinit">
+        Atuin is installable from github-releases directly:
+
+        ```shell
+        # line 1: `atuin` binary as command, from github release, only look at .tar.gz files, use the `atuin` file from the extracted archive
+        # line 2: setup at clone(create init.zsh, completion)
+        # line 3: pull behavior same as clone, source init.zsh
+        zinit ice as"command" from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" \
+            atclone"./atuin init zsh > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
+            atpull"%atclone" src"init.zsh"
+        zinit light atuinsh/atuin
+        ```
+    </TabItem>
     <TabItem label="Source">
         Atuin builds on the latest stable version of Rust, and we make no
         promises regarding older versions. We recommend using [rustup](https://rustup.rs/).
@@ -121,6 +134,7 @@ After installing, remember to restart your shell.
         <Tabs>
             <TabItem label="zinit">
                 ```shell
+                # if you _only_ want to install the shell-plugin, do this; otherwise look above for a "everything via zinit" solution
                 zinit load atuinsh/atuin
                 ```
             </TabItem>
