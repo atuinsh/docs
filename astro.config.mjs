@@ -1,10 +1,29 @@
 import { defineConfig } from 'astro/config';
 import starlightLinksValidator from 'starlight-links-validator'
 import starlight from '@astrojs/starlight';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://docs.atuin.sh",
+  markdown: {
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'wrap',
+          headingProperties: {
+            className: ['anchor'],
+          },
+          properties: {
+            className: ['anchor-link'],
+          },
+        }
+      ]
+    ]
+  },
   integrations: [
     starlight({
       plugins: [starlightLinksValidator()],
