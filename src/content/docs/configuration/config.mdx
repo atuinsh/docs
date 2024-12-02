@@ -334,6 +334,9 @@ This matches history against a set of default regex, and will not save it if we 
 5. Stripe live/test keys
 6. Atuin login command
 7. Cloud environment variable patterns (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AZURE_STORAGE_CLASS_KEY`, `GOOGLE_SERVICE_ACCOUNT_KEY`)
+8. Netlify authentication tokens
+9. Npm pat
+10. Pulumi pat
 
 ### macOS <kbd>Ctrl-n</kbd> key shortcuts
 Default: `true`
@@ -569,6 +572,7 @@ Which preview strategy is used to calculate the preview height. It respects `max
 |----------------|-----------------------------------------------------|
 | auto (default) | selected command                                    |
 | static         | longest command in the current result set           |
+| fixed          | use `max_preview_height` as fixed value             |
 
 By using `auto` a preview is shown, iff the command is longer than the width of the terminal.
 
@@ -619,4 +623,49 @@ The port to use for client -> daemon communication. Only used on non-unix system
 
 ```toml
 tcp_port = 8889
+```
+
+## theme
+Atuin version: >= 18.4
+
+The theme to use for showing the terminal interface.
+
+```toml
+[theme]
+name = ""
+debug = false
+max_depth = 10
+```
+
+### `name`
+Default: `""`
+
+A theme name that must be present as a built-in (an empty string for the default,
+`autumn` or `marine`), or found in the themes directory, with the suffix `.toml`.
+By default this is `~/.config/atuin/themes/` but can be overridden with the
+`ATUIN_THEME_DIR` environment variable.
+
+```toml
+name = "my-theme"
+```
+
+### `debug`
+Default: `false`
+
+Output information about why a theme will not load. Independent from other log
+levels as it can cause data from the theme file to be printed unfiltered to the
+terminal.
+
+```toml
+debug = false
+```
+
+### `max_depth`
+Default: 10
+
+Number of levels of "parenthood" that will be traversed for a theme. This should not
+need to be added in or changed in normal usage.
+
+```toml
+max_depth = 10
 ```
