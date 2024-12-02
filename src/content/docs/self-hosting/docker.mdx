@@ -109,7 +109,7 @@ You can add another service to your `docker-compose.yml` file to have it run dai
   backup:
     restart: unless-stopped
     container_name: atuin_db_dumper
-    image: prodrigestivill/postgres-backup-local
+    image: prodrigestivill/postgres-backup-local:17-debian-234f538
     env_file:
       - .env
     environment:
@@ -120,6 +120,7 @@ You can add another service to your `docker-compose.yml` file to have it run dai
       SCHEDULE: "@daily"
       BACKUP_DIR: /db_dumps
       TZ: Europe/London
+      HEALTHCHECK_PORT: 8888
     volumes:
       - ./db_dumps:/db_dumps
     depends_on:
