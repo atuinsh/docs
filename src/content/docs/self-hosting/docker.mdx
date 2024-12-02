@@ -120,7 +120,7 @@ You can add another service to your `docker-compose.yml` file to have it run dai
       SCHEDULE: "@daily"
       BACKUP_DIR: /db_dumps
       TZ: Europe/London
-      HEALTHCHECK_PORT: 8888
+      HEALTHCHECK_PORT: 5432
     volumes:
       - ./db_dumps:/db_dumps
     depends_on:
