@@ -147,6 +147,7 @@ The default filter to use when searching
 | host             | Search history just from this host                           |
 | session          | Search history just from the current session                 |
 | directory        | Search history just from the current directory               |
+| workspace        | Search history just from the current git repository (>17.0)  |
 
 Filter modes can still be toggled via ctrl-r
 
@@ -346,7 +347,7 @@ Configures whether to store commands that failed (those with non-zero exit statu
 
 Atuin version: >= 17.0
 
-Defatults: `true`
+Default: `true`
 
 ```toml
 secrets_filter = true
