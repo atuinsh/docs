@@ -111,7 +111,7 @@ You can add another service to your `docker-compose.yml` file to have it run dai
   backup:
     restart: unless-stopped
     container_name: atuin_db_dumper
-        image: prodrigestivill/postgres-backup-local
+    image: prodrigestivill/postgres-backup-local
     env_file:
       - .env
     environment:
