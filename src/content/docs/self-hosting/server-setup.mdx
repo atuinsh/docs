@@ -45,6 +45,12 @@ ATUIN_DB_URI="postgres://user:password@hostname/database"
 | `db_uri`            | A valid PostgreSQL URI, for saving history (default: false)                   |
 | `path`              | A path to prepend to all routes of the server (default: false)                |
 
+### Log Levels
+
+You can set `RUST_LOG` environment variable to configure the log level for the server.
+
+For example `RUST_LOG=debug atuin server start` is useful while debugging an issue.
+
 ### TLS
 
 The server supports TLS through the `[tls]` section:
