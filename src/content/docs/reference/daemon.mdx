@@ -26,6 +26,32 @@ enabled = true
 
 Then, run `atuin daemon`. This might make sense in a tmux session, systemd unit, etc. Once it's ready for wider use, we will handle this setup for you.
 
+Example systemd configuration
+
+```ini
+[Unit]
+Description=Atuin shell history sync daemon
+Documentation=https://github.com/ellie/atuin
+
+[Service]
+ExecStart=/usr/local/bin/atuin daemon  # change the path to where you've atuin installed.
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
+```
+
+```sh
+mkdir -p ~/.config/systemd/user/
+cp atuin.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now atuin.service
+systemctl --user status atuin.service
+```
+
 ## Extra config
 
 See the [config section](/configuration/config/#daemon)
