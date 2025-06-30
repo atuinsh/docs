@@ -24,7 +24,7 @@ You can manually trigger a sync with `atuin sync`
 
 Register for a sync account with
 
-```
+```bash
 atuin register -u <USERNAME> -e <EMAIL> -p <PASSWORD>
 ```
 
@@ -41,7 +41,7 @@ here!
 
 You can delete your sync account with
 
-```
+```bash
 atuin account delete
 ```
 
@@ -54,7 +54,7 @@ Atuin data directory (`~/.local/share/atuin` on Linux).
 
 You can also get this with
 
-```
+```bash
 atuin key
 ```
 
@@ -65,7 +65,7 @@ Never share this with anyone!
 If you want to log in to a new machine, you will require your encryption key
 (`atuin key`).
 
-```
+```bash
 atuin login -u <USERNAME> -p <PASSWORD> -k <KEY>
 ```
 
@@ -74,6 +74,6 @@ the password flag and you will be prompted to provide it through stdin.
 
 ## Logout
 
-```
+```bash
 atuin logout
 ```
