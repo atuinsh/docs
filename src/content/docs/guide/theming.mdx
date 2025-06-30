@@ -12,7 +12,7 @@ Atuin ships with only a couple of built-in alternative themes, but more can be a
 
 The following is required in your config file (`~/.config/atuin/config.toml`)
 
-```
+```toml
 [theme]
 name = "THEMENAME"
 ```
@@ -28,7 +28,7 @@ will need to download themes or make your own.
 
 If you are writing your own themes, you can add the following line to get additional output:
 
-```
+```toml
 debug = true
 ```
 
@@ -95,7 +95,6 @@ parent = "autumn"
 [colors]
 AlertInfo = "green"
 Guidance = "#888844"
-
 ```
 
 where not all of the *Meanings* need to be explicitly defined. If they are absent,
@@ -105,7 +104,7 @@ key is missing in the `theme` block, from the default theme.
 This theme file should be moved to `~/.config/atuin/themes/my-theme.toml` and the
 following added to `~/.config/atuin/config.toml`:
 
-```
+```toml
 [theme]
 name = "my-theme"
 ```

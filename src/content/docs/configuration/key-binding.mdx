@@ -26,7 +26,8 @@ You can also disable either the up-arrow or <kbd>Ctrl-r</kbd> bindings individua
 `--disable-up-arrow` or `--disable-ctrl-r` to the call to `atuin init` in your shell config file:
 
 An example for zsh:
-```
+
+```zsh
 # Bind ctrl-r but not up arrow
 eval "$(atuin init zsh --disable-up-arrow)"
 
@@ -71,7 +72,7 @@ can be used for the keybindings to the <kbd>up</kbd> key and similar keys.
 
 Note: instead use the widget names "\_atuin\_search\_widget" and "\_atuin\_up\_search\_widget", respectively, in `atuin < 18.0`
 
-```
+```zsh
 export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"
 
@@ -94,7 +95,7 @@ Atuin provides a bindable shell function "`__atuin_history`" for keybindings in
 Bash.  The flag `--shell-up-key-binding` can be optionally specified to the
 first argument for keybindings to the <kbd>up</kbd> key or similar keys.
 
-```
+```bash
 export ATUIN_NOBIND="true"
 eval "$(atuin init bash)"
 
@@ -116,7 +117,7 @@ combination with the config
 ## fish
 Edit key bindings in FISH shell by adding the following to ~/.config/fish/config.fish
 
-```
+```fish
 set -gx ATUIN_NOBIND "true"
 atuin init fish | source
 
@@ -201,7 +202,7 @@ If [vim is enabled in the config](https://docs.atuin.sh/configuration/config/#vi
 
 
 ### Inspector
-Open the inspector with ctrl-o 
+Open the inspector with ctrl-o
 
 | Shortcut | Action                                        |
 | -------- | --------------------------------------------- |
