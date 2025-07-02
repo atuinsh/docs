@@ -1,11 +1,12 @@
 # Atuin Documentation
 
 ![Atuin Logo Dark](.github/logo-dark.png)
-![Atuin Preview](.github/preview.png)
 
 This repository contains the source code for the official Atuin documentation, hosted at [docs.atuin.sh](https://docs.atuin.sh).
 
 Atuin is a **magical shell history** tool that replaces your shell's default history with a SQLite database, providing a powerful search interface and optional cloud synchronization.
+
+![Atuin Preview](.github/preview.png)
 
 ## Project Structure
 
