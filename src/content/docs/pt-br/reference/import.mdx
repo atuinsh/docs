@@ -1,0 +1,85 @@
+---
+title: importar
+---
+
+## `atuin import`
+
+O Atuin pode importar seu histórico do seu arquivo de histórico "antigo".
+
+`atuin import auto` tentará descobrir seu shell (via $SHELL) e executar o importador correto.
+
+Infelizmente, esses arquivos mais antigos não armazenam tantas informações quanto o Atuin, então nem todos os recursos estão disponíveis com dados importados.
+
+Exceto quando indicado de outra forma, você pode definir a variável de ambiente `HISTFILE` para controlar qual arquivo é lido, caso contrário, cada importador tentará alguns nomes de arquivo padrão.
+
+```sh
+HISTFILE=/path/to/history/file atuin import zsh
+```
+
+Observe que para shells como o Xonsh, que armazenam o histórico em muitos arquivos em vez de um único arquivo, `$HISTFILE` deve ser definido para o diretório onde esses arquivos residem.
+
+Para formatos que não armazenam carimbos de data/hora, os carimbos de data/hora serão gerados a partir do tempo atual mais 1ms para cada comando adicional no histórico.
+
+A maioria dos importadores descartará comandos encontrados que tenham UTF-8 inválido.
+
+## bash
+
+Isso lerá o histórico de `$HISTFILE` ou `$HOME/.bash_history`.
+
+Avisos serão emitidos se os carimbos de data/hora forem encontrados fora de ordem, o que também pode acontecer quando um arquivo de histórico começa sem carimbos de data/hora, mas entradas posteriores os incluem.
+
+## fish
+
+O fish suporta várias sessões de histórico, então o importador usará como padrão a sessão `fish`, a menos que a variável de ambiente `fish_history` seja definida. O arquivo a ser lido será `{session}_history` em `$XDG_DATA_HOME/fish/` (ou `$HOME/.local/share/fish`).
+
+Nem todos os dados no histórico do fish são preservados, alguns dados sobre nomes de arquivos usados para cada comando não são usados pelo Atuin, então são descartados.
+
+## nu-hist-db
+
+Este importador lê do banco de dados de histórico SQLite do Nushell, que é armazenado em 
+`$XDG_CONFIG_HOME/nushell/history.sqlite3` ou `$HOME/.config/nushell/history.sqlite3`.
+Não há como definir o nome do arquivo de outra forma.
+
+## nu
+
+Este importador lê do formato de histórico de texto do Nushell, que é armazenado em 
+`$XDG_CONFIG_HOME/nushell/history.txt` ou `$HOME/.config/nushell/history.txt`.
+Não há como definir o nome do arquivo de outra forma.
+
+## resh
+
+O importador [RESH](https://github.com/curusarn/resh) lerá de `$HISTFILE` ou `$HOME/.resh_history.json`.
+
+## xonsh
+
+O importador Xonsh lerá de todos os arquivos JSON que encontrar no diretório de histórico do Xonsh. A localização do diretório é determinada da seguinte forma:
+* Se `$HISTFILE` estiver definido, seu valor é usado como o diretório de histórico.
+* Se `$XONSH_DATA_DIR` estiver definido (como normalmente estará se o importador for invocado
+  de dentro do Xonsh), `$XONSH_DATA_DIR/history_json` é usado.
+* Se `$XDG_DATA_HOME` estiver definido, `$XDG_DATA_HOME/xonsh/history_json` é usado.
+* Caso contrário, `$HOME/.local/share/xonsh/history_json` é usado.
+
+Nem todos os dados presentes nos arquivos JSON de histórico do Xonsh são usados pelo Atuin. O Xonsh armazena as
+variáveis de ambiente presentes quando cada sessão foi iniciada, mas esses dados são
+descartados pelo Atuin. O Xonsh opcionalmente armazena a saída de cada comando; se presente
+este dado também é ignorado pelo Atuin.
+
+## xonsh_sqlite
+
+O importador Xonsh SQLite lerá do arquivo de histórico SQLite do Xonsh. A localização do histórico
+do arquivo é determinada pelo mesmo processo do importador Xonsh regular,
+mas com `history_json` substituído por `xonsh-history.sqlite`.
+
+O backend SQLite do Xonsh não armazena variáveis de ambiente, mas como o backend JSON
+ele pode opcionalmente armazenar a saída de cada comando. Assim como no backend JSON,
+se presente, esses dados serão ignorados pelo Atuin.
+
+## zsh_histdb
+
+Isso lerá o arquivo SQLite do Zsh histdb de `$HISTDB_FILE` ou
+`$HOME/.histdb/zsh-history.db`.
+
+## zsh
+
+Isso lerá o histórico do Zsh de `$HISTFILE` ou `$HOME/.zhistory`
+ou `$HOME/.zsh_history` no formato simples ou estendido.

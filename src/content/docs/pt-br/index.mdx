@@ -1,0 +1,54 @@
+---
+title: Primeiros passos
+---
+
+import {Tabs, TabItem, LinkCard} from "@astrojs/starlight/components";
+
+O Atuin substitui seu histórico de shell existente com um banco de dados SQLite, e registra
+contexto adicional para seus comandos. Com esse contexto, o Atuin oferece uma pesquisa mais rápida
+e melhor do seu histórico de shell.
+
+Além disso, o Atuin (opcionalmente) sincroniza seu histórico de shell entre todas as suas
+máquinas. Totalmente criptografado de ponta a ponta, é claro.
+
+Você pode usar o servidor que eu hospedo, ou hospedar o seu próprio! Ou simplesmente não usar a sincronização.
+Como toda a sincronização de histórico é criptografada, eu não conseguiria acessar seus dados mesmo se quisesse.
+E eu **realmente** não quero.
+
+Se você tiver algum problema, por favor, abra um tópico no [fórum](https://forum.atuin.sh)
+
+Alternativamente, entre em contato em nosso [Discord](https://discord.gg/Fq8bJSKPHh) ou abra um [problema](https://github.com/atuinsh/atuin/issues)
+
+#### Shells Suportados
+
+- zsh
+- bash
+- fish
+- nushell
+- xonsh
+
+## Início Rápido
+
+Por favor, tente ler este guia, mas se você estiver com pressa e quiser começar rapidamente:
+
+```bash
+bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
+
+atuin register -u <USERNAME> -e <EMAIL>
+atuin import auto
+atuin sync
+```
+
+Agora reinicie seu shell!
+
+Sempre que você pressionar ctrl-r ou seta para cima, você verá a interface de pesquisa do Atuin. Digite sua
+consulta, enter para executar. Se você quiser selecionar um comando sem executá-lo,
+pressione tab.
+
+Você pode querer configurar uma [janela inline](https://docs.atuin.sh/configuration/config/#inline_height), ou [desabilitar as vinculações da seta para cima](https://docs.atuin.sh/configuration/key-binding/#disable-up-arrow)
+
+<LinkCard
+  title="Instalação"
+  description="Instale e configure o Atuin"
+  href="/guide/installation/"
+/>

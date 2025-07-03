@@ -1,0 +1,80 @@
+---
+title: Configurando a Sincronização
+---
+
+Neste ponto, você tem o Atuin armazenando e pesquisando seu histórico de shell! Mas ele
+ainda não está sincronizando. Para fazer isso, você precisará se registrar com o servidor de sincronização.
+Todo o seu histórico é totalmente criptografado de ponta a ponta, então não há
+riscos de o servidor espionar você.
+
+Se você não tem uma conta, por favor, [registre-se](#register). Se você já se registrou,
+prossiga para [login](#login).
+
+**Nota:** Você primeiro precisa configurar seu `sync_address` se quiser usar um [servidor auto-hospedado](/self-hosting/server-setup/).
+
+## Registrar
+
+```sh
+atuin register -u <SEU_NOME_DE_USUÁRIO> -e <SEU_EMAIL>
+```
+
+Após o registro, o Atuin gerará uma chave de criptografia para você e a armazenará
+localmente. Isso é necessário para fazer login em outras máquinas, e pode ser visto com
+
+```sh
+atuin key
+```
+
+Por favor, **nunca** compartilhe esta chave com ninguém! Os desenvolvedores do Atuin nunca
+pedirão sua chave, sua senha, ou o conteúdo do seu diretório Atuin.
+
+Se você perder sua chave, não podemos fazer nada para ajudá-lo. Recomendamos que você a armazene
+em um local seguro, como em um gerenciador de senhas.
+
+## Primeira sincronização
+Por padrão, o Atuin sincronizará seu histórico uma vez por hora. Isso pode ser
+[configurado](/configuration/config/#sync_frequency).
+
+Para executar uma sincronização manualmente, por favor, execute
+
+```sh
+atuin sync
+```
+
+O Atuin tenta ser inteligente com uma sincronização, e não desperdiçar transferência de dados. No entanto, se
+você estiver vendo alguns dados ausentes, por favor, tente executar
+
+```sh
+atuin sync -f
+```
+
+Isso aciona uma sincronização completa, que pode levar mais tempo, pois trabalha com dados históricos.
+
+## Login
+
+Quando logado em apenas uma máquina, a sincronização do Atuin opera como um backup. Isso é
+bem útil por si só, mas sincronizar várias máquinas é onde a mágica
+acontece.
+
+Primeiro, certifique-se de estar [registrado no servidor de sincronização](#register) e faça uma
+anotação de sua chave. Você pode ver isso com `atuin key`.
+
+Então, instale o Atuin em uma nova máquina. Uma vez instalado, faça login com
+
+```sh
+atuin login -u <NOME_DE_USUÁRIO>
+```
+
+Você será solicitado a informar sua senha, e sua chave.
+
+A sincronização acontecerá automaticamente em segundo plano, mas você pode querer executá-la manualmente com
+
+```sh
+atuin sync
+```
+
+Ou, se você vir dados ausentes, force uma sincronização completa com:
+
+```sh
+atuin sync -f
+```

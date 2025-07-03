@@ -1,0 +1,55 @@
+---
+title: Configuração do servidor
+---
+
+Embora ofereçamos um servidor de sincronização público e não possamos ver seus dados (pois são criptografados), você ainda pode desejar auto-hospedar seu próprio servidor de sincronização Atuin.
+
+Os requisitos para isso são bem mínimos! Você precisa ser capaz de executar um binário ou contêiner docker e ter um banco de dados PostgreSQL configurado. O Atuin requer PostgreSQL 14 ou superior.
+
+Qualquer host com o binário `atuin` também pode executar um servidor, executando
+
+```shell
+atuin server start
+```
+
+## Configuração
+
+A configuração do servidor é mantida separada da configuração do cliente, embora sejam o mesmo binário. A configuração do servidor pode ser encontrada em `~/.config/atuin/server.toml`.
+
+Parece algo assim:
+
+```toml
+host = "0.0.0.0"
+port = 8888
+open_registration = true
+db_uri="postgres://user:password@hostname/database"
+```
+
+Alternativamente, a configuração também pode ser fornecida com variáveis de ambiente.
+
+```sh
+ATUIN_HOST="0.0.0.0"
+ATUIN_PORT=8888
+ATUIN_OPEN_REGISTRATION=true
+ATUIN_DB_URI="postgres://user:password@hostname/database"
+```
+
+
+| Parâmetro           | Descrição                                                                   |
+| ------------------- | ----------------------------------------------------------------------------- |
+| `host`              | O host para escutar (padrão: 127.0.0.1)                                    |
+| `port`              | A porta TCP para escutar (padrão: 8888)                                         |
+| `open_registration` | Se `true`, aceita novos registros de usuário (padrão: false)                     |
+| `db_uri`            | Uma URI PostgreSQL válida, para salvar o histórico (padrão: false)                   |
+| `path`              | Um caminho para preceder todas as rotas do servidor (padrão: false)                |
+
+### TLS
+
+O servidor suporta TLS através da seção `[tls]`:
+
+```toml
+[tls]
+enable = true
+cert_path = "/path/to/letsencrypt/live/fully.qualified.domain/fullchain.pem"
+pkey_path = "/path/to/letsencrypt/live/fully.qualified.domain/privkey.pem"
+```
