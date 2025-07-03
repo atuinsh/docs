@@ -1,0 +1,174 @@
+---
+title: Vinculação de Teclas
+---
+
+O Atuin ainda não possui personalização completa de vinculação de teclas, embora permitamos algumas alterações.
+
+## Modo de filtro de seta para cima personalizado
+Pode ser útil usar um filtro ou modo de pesquisa diferente na seta para cima. Por exemplo, você pode usar ctrl-r para pesquisar globalmente, mas a seta para cima para pesquisar o histórico apenas do diretório atual.
+Defina sua configuração assim:
+
+```bash
+filter_mode_shell_up_key_binding = "directory" # ou global, host, directory, etc
+```
+
+## Desabilitar seta para cima
+Nossa vinculação padrão da seta para cima pode ser um pouco controversa. Algumas pessoas adoram, algumas pessoas odeiam. Muitas pessoas que a acharam um pouco estranha no início, desde então, passaram a amá-la, então experimente!
+Torna-se muito mais poderosa se você considerar vincular um modo de filtro diferente à seta para cima. Por exemplo, em "para cima", o Atuin pode padronizar a pesquisa de todo o histórico apenas para o diretório atual, enquanto ctrl-r pesquisa o histórico globalmente. Veja a [configuração](/configuration/config/#filter_mode_shell_up_key_binding) para mais.
+
+Caso contrário, se você não gostar, é fácil desabilitar. Você também pode desabilitar a seta para cima ou as vinculações <kbd>Ctrl-r</kbd> individualmente, passando `--disable-up-arrow` ou `--disable-ctrl-r` para a chamada `atuin init` no arquivo de configuração do seu shell:
+
+Um exemplo para zsh:
+
+```bash
+# Vincular ctrl-r mas não a seta para cima
+eval "$(atuin init zsh --disable-up-arrow)"
+
+# Vincular a seta para cima mas não ctrl-r
+eval "$(atuin init zsh --disable-ctrl-r)"
+```
+
+
+If you don't want any of the keys to be bound, pass both `--disable` arguments, or set the `ATUIN_NOBIND` environment variable to any value before the `atuin init` call:
+
+```bash
+## Não vincular nenhuma tecla
+# Ou:
+eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
+
+# Ou:
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+```
+
+Você pode então optar por vincular o Atuin se necessário, faça isso após a chamada para init.
+
+## Comportamento da tecla Enter
+Por padrão, a tecla `enter` executará diretamente o comando selecionado em vez de permitir que você o edite como a tecla `tab`. Se você quiser alterar esse comportamento, defina `enter_accept = false` em sua configuração. Para mais detalhes: [enter_accept](https://docs.atuin.sh/configuration/config/#enter_accept).
+
+## Atalhos de teclado <kbd>Ctrl-n</kbd>
+O macOS não possui uma tecla <kbd>Alt</kbd>, embora os emuladores de terminal possam frequentemente ser configurados para mapear a tecla <kbd>Option</kbd> para ser usada como <kbd>Alt</kbd>. *No entanto*, remapear <kbd>Option</kbd> dessa forma pode impedir a digitação de alguns caracteres, como usar <kbd>Option-3</kbd> para digitar `#` no layout inglês britânico. Para tal cenário, defina a opção `ctrl_n_shortcuts` como `true` em seu arquivo de configuração para substituir os atalhos <kbd>Alt-0</kbd> a <kbd>Alt-9</kbd> por <kbd>Ctrl-0</kbd> a <kbd>Ctrl-9</kbd> em vez disso:
+```
+# Usar Ctrl-0 .. Ctrl-9 em vez de Alt-0 .. Alt-9 atalhos de UI
+ctrl_n_shortcuts = true
+```
+
+## zsh
+Se você quiser personalizar ainda mais suas vinculações, é possível fazê-lo com a configuração de shell personalizada:
+O Atuin define os widgets ZLE "atuin-search" e "atuin-up-search". O último
+pode ser usado para as vinculações de teclas para a tecla <kbd>up</kbd> e teclas semelhantes.
+Nota: em vez disso, use os nomes dos widgets "_atuin_search_widget" e "_atuin_up_search_widget", respectively, in `atuin < 18.0`
+
+```sh
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+
+bindkey '^r' atuin-search
+
+# vincular à tecla para cima, que depende do modo do terminal
+bindkey '^[[A' atuin-up-search
+bindkey '^[[OA' atuin-up-search
+```
+
+Para as vinculações de teclas no modo vi, "atuin-search-viins", "atuin-search-vicmd",
+"atuin-up-search-viins", e "atuin-up-search-vicmd" (`atuin >= 18.0`) podem ser
+usados em combinação com a configuração["keymap\_mode"](https://docs.atuin.sh/configuration/config/#keymap_mode)
+(`atuin >= 18.0`) para iniciar a pesquisa do Atuin nos respectivos modos de mapa de teclas.
+
+## bash
+
+O Atuin fornece uma função de shell vinculável "`__atuin_history`" para vinculações de teclas em Bash. A flag `--shell-up-key-binding` pode ser opcionalmente especificada para o primeiro argumento para vinculações de teclas para a tecla <kbd>up</kbd> ou teclas semelhantes.
+
+```bash
+export ATUIN_NOBIND="true"
+eval "$(atuin init bash)"
+
+# vincular a ctrl-r, adicione quaisquer outras vinculações que você queira aqui também
+bind -x '"\C-r": __atuin_history'
+
+# vincular à tecla para cima, que depende do modo do terminal
+bind -x '"\e[A": __atuin_history --shell-up-key-binding'
+bind -x '"\eOA": __atuin_history --shell-up-key-binding'
+```
+
+Para as vinculações de teclas no modo de edição `vi`, as opções `--keymap-mode=vim-insert` e `--keymap-mode=vim-normal` (`atuin >= 18.0`) podem ser adicionalmente especificadas para a função de shell `__atuin_history` em combinação com a configuração["keymap\_mode"](https://docs.atuin.sh/configuration/config/#keymap_mode) (`atuin >= 18.0`) para iniciar a pesquisa do Atuin nos respectivos modos de mapa de teclas.
+
+## fish
+Edite as vinculações de teclas no shell FISH adicionando o seguinte a ~/.config/fish/config.fish
+
+```bash
+set -gx ATUIN_NOBIND "true"
+atuin init fish | source
+
+# vincular a ctrl-r nos modos normal e de inserção, adicione quaisquer outras vinculações que você queira aqui também
+bind \cr _atuin_search
+bind -M insert \cr _atuin_search
+```
+
+Para a vinculação da tecla <kbd>up</kbd>, `_atuin_bind_up` pode ser usado em vez de `_atuin_search`.
+
+Adicionar a útil vinculação de tecla alternativa de <kbd>CTRL-up</kbd> é complicado e determinado pela aderência dos terminais ao terminfo(5).
+
+## nu
+```nu
+$env.ATUIN_NOBIND = true
+atuin init nu | save -f ~/.local/share/atuin/init.nu #certifique-se de ter criado o diretório antes com `mkdir ~/.local/share/atuin/init.nu`
+source ~/.local/share/atuin/init.nu
+
+#vincular a ctrl-r nos modos emacs, vi_normal e vi_insert, adicione quaisquer outras vinculações que você queira aqui também
+$env.config = ($env.config | upsert keybindings ($env.config.keybindings| append {
+    name: atuin
+    modifier: control
+    keycode: char_r
+    mode: [emacs, vi_normal, vi_insert]
+    event: { send: execute_host_command cmd: (_atuin_search_cmd) }
+}))
+```
+
+## Atalhos da UI do Atuin
+
+| Atalho                                    | Ação                                                                      |
+| ----------------------------------------- | ------------------------------------------------------------------------- |
+| `enter`                                   | Executar item selecionado                                                 |
+| `tab`                                     | Selecionar item e editar                                                  |
+| <kbd>ctrl + r</kbd>                       | Alternar entre os modos de filtro                                         |
+| <kbd>ctrl + s</kbd>                       | Alternar entre os modos de pesquisa                                       |
+| <kbd>alt + 1</kbd> a <kbd>alt + 9</kbd>   | Selecionar item pelo número localizado próximo a ele                      |
+| <kbd>ctrl + c</kbd> / <kbd>ctrl + d</kbd> / <kbd>ctrl + g</kbd> / <kbd>esc</kbd> | Retornar original                                                         |
+| <kbd>ctrl + y</kbd>                       | Copiar item selecionado para a área de transferência                      |
+| <kbd>ctrl + ⬅︎</kbd> / <kbd>alt + b</kbd> | Mover o cursor para a palavra anterior                                    |
+| <kbd>ctrl + ➡️</kbd> / <kbd>alt + f</kbd> | Mover o cursor para a próxima palavra                                     |
+| <kbd>ctrl + b</kbd> / <kbd>⬅︎</kbd>       | Mover o cursor para a esquerda                                            |
+| <kbd>ctrl + f</kbd> / <kbd>➡️</kbd>       | Mover o cursor para a direita                                             |
+| <kbd>ctrl + a</kbd> / <kbd>home</kbd>     | Mover o cursor para o início da linha                                     |
+| <kbd>ctrl + e</kbd> / <kbd>end</kbd>      | Mover o cursor para o final da linha                                      |
+| <kbd>ctrl + backspace</kbd> / <kbd>ctrl + alt + backspace</kbd> | Remover a palavra anterior / remover a palavra logo antes do cursor       |
+| <kbd>ctrl + delete</kbd> / <kbd>ctrl + alt + delete</kbd> | Remover a próxima palavra ou a palavra logo após o cursor                 |
+| <kbd>ctrl + w</kbd>                       | Remover a palavra antes do cursor, mesmo que ela se estenda pelas fronteiras da palavra |
+| <kbd>ctrl + u</kbd>                       | Limpar a linha atual                                                      |
+| <kbd>ctrl + n</kbd> / <kbd>ctrl + j</kbd> / <kbd>⬆</kbd> | Selecionar o próximo item na lista                                        |
+| <kbd>ctrl + p</kbd> / <kbd>ctrl + k</kbd> / <kbd>⬇</kbd> | Selecionar o item anterior na lista                                       |
+| <kbd>ctrl + o</kbd>                       | Abrir o inspetor                                                          |
+| <kbd>page down</kbd>                      | Rolar os resultados da pesquisa uma página para baixo                     |
+| <kbd>page up</kbd>                        | Rolar os resultados da pesquisa uma página para cima                      |
+| <kbd>⬇</kbd> (sem entrada selecionada)   | Retornar original ou retornar consulta dependendo das [configurações](/configuration/config/#exit_mode) |
+| <kbd>⬇</kbd>                              | Selecionar o próximo item na lista                                        |
+
+### Modo Vim
+Se [o vim estiver habilitado na configuração](https://docs.atuin.sh/configuration/config/#vim), as seguintes vinculações de teclas são habilitadas:
+
+| Atalho | Modo | Ação |
+| -------- | ------ | ------------------------------------- |
+| k | Normal | Seleciona o próximo item na lista |
+| j | Normal | Seleciona o item anterior na lista |
+| i | Normal | Entra no modo de inserção |
+| Esc | Insert | Entra no modo normal |
+
+### Inspetor
+Abra o inspetor com ctrl-o 
+
+| Atalho | Ação |
+| -------- | --------------------------------------------- |
+| Esc | Fechar o inspetor, retornando ao shell |
+| ctrl+o | Fechar o inspetor, retornando à visualização de pesquisa |
+| ctrl+d | Excluir o item inspecionado do histórico |

@@ -1,0 +1,22 @@
+---
+title: gerar-completions
+---
+
+[Completions de shell](https://en.wikipedia.org/wiki/Command-line_completion) para o Atuin podem ser geradas especificando o diretório de saída e o shell desejado via subcomando `gen-completions`.
+
+```
+$ atuin gen-completions --shell bash --out-dir $HOME
+
+Completions de shell para BASH são geradas em "/home/user"
+```
+
+Os valores possíveis para o argumento `--shell` são os seguintes:
+
+- `bash`
+- `fish`
+- `zsh`
+- `nushell`
+- `powershell`
+- `elvish`
+
+Além disso, veja os [shells suportados](https://github.com/atuinsh/atuin#supported-shells).

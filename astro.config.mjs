@@ -53,9 +53,47 @@ export default defineConfig({
         linkedin: 'https://www.linkedin.com/company/atuin/'
       },
 
-      defaultLocale: "root",
+      defaultLocale: "en",
       locales: {
-        root: { label: "English", lang: "en" }
+        en: { label: "English", lang: "en" },
+        "pt-br": {
+          label: "Português (Brasil)",
+          lang: "pt-BR",
+          sidebar: [
+            {
+              label: 'Guia',
+              items: [
+                { label: 'Instalação', link: '/pt-br/guide/installation' },
+                { label: 'Configurando a sincronização', link: '/pt-br/guide/sync' },
+                { label: 'Importar histórico existente', link: '/pt-br/guide/import' },
+                { label: 'Uso básico', link: '/pt-br/guide/basic-usage' },
+                { label: 'Sincronizando dotfiles', link: '/pt-br/guide/dotfiles' },
+                { label: 'Temas', link: '/pt-br/guide/theming' },
+              ],
+            },
+            {
+              label: 'Configuração',
+              autogenerate: { directory: 'configuration' },
+            },
+            {
+              label: 'Referência',
+              autogenerate: { directory: 'reference' },
+            },
+            {
+              label: 'Auto-hospedagem',
+              items: [
+                { label: 'Configuração do servidor', link: '/pt-br/self-hosting/server-setup' },
+                { label: 'Uso', link: '/pt-br/self-hosting/usage' },
+                { label: 'Docker', link: '/pt-br/self-hosting/docker' },
+                { label: 'Kubernetes', link: '/pt-br/self-hosting/kubernetes' },
+                { label: 'Systemd', link: '/pt-br/self-hosting/systemd' },
+              ],
+            },
+            { label: 'Problemas conhecidos', link: '/pt-br/known-issues' },
+            { label: 'Integrações', link: '/pt-br/integrations' },
+            { label: 'Perguntas Frequentes', link: '/pt-br/faq' },
+          ],
+        }
       },
 
       sidebar: [
