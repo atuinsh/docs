@@ -1,0 +1,731 @@
+---
+title: Config
+---
+
+O Atuin mantém dois arquivos de configuração, armazenados em `~/.config/atuin/`. Armazenamos
+dados em `~/.local/share/atuin` (a menos que substituído por XDG\_\*).
+
+O caminho completo para o arquivo de configuração seria `~/.config/atuin/config.toml`
+
+O local da configuração pode ser substituído por ATUIN_CONFIG_DIR
+
+### `db_path`
+
+Padrão: `~/.local/share/atuin/history.db`
+
+O caminho para o banco de dados SQLite do Atuin.
+
+```toml
+db_path = "~/.history.db"
+```
+
+### `key_path`
+
+Padrão: `~/.local/share/atuin/key`
+
+O caminho para a chave de criptografia do Atuin.
+
+```toml
+key_path = "~/.atuin-key"
+```
+
+### `session_path`
+
+Padrão: `~/.local/share/atuin/session`
+
+O caminho para o arquivo de sessão do servidor Atuin.
+Isso é essencialmente apenas um token de API
+
+```toml
+session_path = "~/.atuin-session"
+```
+
+### `dialect`
+
+Padrão: `us`
+
+Isso configura como o comando [stats](/reference/stats/) analisa as datas. Ele tem dois
+valores possíveis
+
+```toml
+dialect = "uk"
+```
+
+ou
+
+```toml
+dialect = "us"
+```
+
+### `auto_sync`
+
+Padrão: `true`
+
+Configura se deve ou não sincronizar automaticamente, quando logado.
+
+```toml
+auto_sync = true/false
+```
+
+### `update_check`
+
+Padrão: `true`
+
+Configura se deve ou não verificar automaticamente por atualizações.
+
+```toml
+update_check = true/false
+```
+
+### `sync_address`
+
+Padrão: `https://api.atuin.sh`
+
+O endereço do servidor para sincronizar!
+
+```toml
+sync_address = "https://api.atuin.sh"
+```
+
+### `sync_frequency`
+
+Padrão: `1h`
+
+Com que frequência sincronizar automaticamente com o servidor. Isso pode ser dado em um
+"formato legível por humanos". Por exemplo, `10s`, `20m`, `1h`, etc.
+
+Se definido como `0`, o Atuin sincronizará após cada comando. Alguns servidores podem potencialmente
+limitar a taxa, o que não causará nenhum problema.
+
+```toml
+sync_frequency = "1h"
+```
+
+### `search_mode`
+
+Padrão: `fuzzy`
+
+Qual modo de pesquisa usar. O Atuin suporta "prefix", "fulltext", "fuzzy", e
+"skim" modos de pesquisa.
+
+O modo prefixo pesquisa por "query\*"; o modo fulltext pesquisa por "\*query\*";
+"fuzzy" aplica a [sintaxe de pesquisa fuzzy](#fuzzy-search-syntax);
+"skim" aplica a [sintaxe de pesquisa skim](https://github.com/lotabout/skim#search-syntax).
+
+#### Sintaxe de pesquisa `fuzzy`
+
+A sintaxe de pesquisa "fuzzy" é baseada na
+[sintaxe de pesquisa fzf](https://github.com/junegunn/fzf#search-syntax).
+
+| Token     | Tipo de correspondência      | Descrição                          |
+| --------- | -------------------------- | ------------------------------------ |
+| `sbtrkt`  | correspondência fuzzy      | Itens que correspondem a `sbtrkt`            |
+| `'wild`   | correspondência exata (entre aspas)       | Itens que incluem `wild`            |
+| `^music`  | correspondência exata de prefixo         | Itens que começam com `music`        |
+| `.mp3   | correspondência exata de sufixo         | Itens que terminam com `.mp3`           |
+| `!fire`   | correspondência exata inversa        | Itens que não incluem `fire`     |
+| `!^music` | correspondência exata inversa de prefixo | Itens que não começam com `music` |
+| `!.mp3  | correspondência exata inversa de sufixo | Itens que não terminam com `.mp3`    |
+
+Um único termo de barra vertical atua como um operador OR. Por exemplo, a seguinte
+consulta corresponde a entradas que começam com `core` e terminam com `go`, `rb`,
+ou `py`.
+
+```
+^core go$ | rb$ | py$
+```
+
+### `filter_mode`
+
+Padrão: `global`
+
+O filtro padrão a ser usado ao pesquisar
+
+| Modo             | Descrição                                                  |
+| ---------------- | ------------------------------------------------------------ |
+| global (padrão) | Pesquisar histórico de todos os hosts, todas as sessões, todos os diretórios |
+| host             | Pesquisar histórico apenas deste host                           |
+| session          | Pesquisar histórico apenas da sessão atual                 |
+| directory        | Pesquisar histórico apenas do diretório atual               |
+| workspace        | Pesquisar histórico apenas do repositório git atual (>17.0)  |
+
+Os modos de filtro ainda podem ser alternados via ctrl-r
+
+```toml
+filter_mode = "host"
+```
+
+### `search_mode_shell_up_key_binding`
+
+Versão do Atuin: >= 17.0
+
+Padrão: `fuzzy`
+
+O modo de pesquisa padrão a ser usado ao pesquisar e ser invocado por uma vinculação de tecla de seta para cima do shell.
+
+Aceita exatamente as mesmas opções que `search_mode` acima
+
+```toml
+search_mode_shell_up_key_binding = "fuzzy"
+```
+
+Padrão para o valor especificado para `search_mode`.
+
+### `filter_mode_shell_up_key_binding`
+
+Padrão: `global`
+
+O filtro padrão a ser usado ao pesquisar e ser invocado por uma vinculação de tecla de seta para cima do shell.
+
+Aceita exatamente as mesmas opções que `filter_mode` acima
+
+```toml
+filter_mode_shell_up_key_binding = "session"
+```
+
+Padrão para o valor especificado para `filter_mode`.
+
+### `workspaces`
+
+Versão do Atuin: >= 17.0
+
+Padrão: `false`
+
+Esta flag habilita um modo de filtro pseudo-nomeado "workspace": o filtro é automaticamente
+ativado quando você está em um repositório git.
+
+Com a filtragem de workspace habilitada, o Atuin filtrará os comandos executados em qualquer diretório
+dentro de uma árvore de repositório git.
+
+Os modos de filtro ainda podem ser alternados via ctrl-r.
+
+### `style`
+
+Padrão: `compact`
+
+Qual estilo usar. Valores possíveis: `auto`, `full` e `compact`.
+
+- `compact`:
+
+![compact](https://user-images.githubusercontent.com/1710904/161623659-4fec047f-ea4b-471c-9581-861d2eb701a9.png)
+
+- `full`:
+
+![full](https://user-images.githubusercontent.com/1710904/161623547-42afbfa7-a3ef-4820-bacd-fcaf1e324969.png)
+
+Isso significa que o Atuin mudará automaticamente para o modo `compact` quando a janela do terminal for muito curta para o `full` exibir corretamente.
+
+### `invert`
+
+Versão do Atuin: >= 17.0
+
+Padrão: `false`
+
+Inverte a UI - coloca a barra de pesquisa no topo.
+
+```toml
+invert = true/false
+```
+
+### `inline_height`
+
+Padrão: `40`
+
+Define o número máximo de linhas que a interface do Atuin deve ocupar.
+
+![inline_height](/inline.png)
+
+Se definido como `0`, o Atuin sempre ocupará o máximo de linhas disponíveis (tela cheia).
+
+### `show_preview`
+
+Padrão: `true`
+
+Configura se deve ou não mostrar uma prévia do comando selecionado.
+
+![show_preview](/preview.png)
+
+Útil quando o comando é mais longo que a largura do terminal e é cortado.
+
+### `max_preview_height`
+
+Versão do Atuin: >= 17.0
+
+Padrão: `4`
+
+Configura a altura máxima da prévia a ser mostrada.
+
+Útil quando você tem scripts longos em seu histórico que deseja distinguir por mais do que as primeiras linhas.
+
+### `show_help`
+
+Versão do Atuin: >= 17.0
+
+Padrão: `true`
+
+Configura se deve ou não mostrar a linha de ajuda, que inclui a versão atual do Atuin (e se uma atualização está disponível), uma dica de mapa de teclas e a quantidade total de comandos em seu histórico.
+
+### `show_tabs`
+
+Versão do Atuin: >= 18.0
+
+Padrão: `true`
+
+Configura se deve ou não mostrar abas para pesquisa e inspeção.
+
+### `exit_mode`
+
+Padrão: `return-original`
+
+O que fazer quando a tecla escape é pressionada durante a pesquisa
+
+| Valor                     | Comportamento                                                        |
+| ------------------------- | ---------------------------------------------------------------- |
+| return-original (padrão) | Define a linha de comando para o valor que tinha antes de iniciar a pesquisa  |
+| return-query              | Define a linha de comando para a consulta de pesquisa que você digitou até agora |
+
+Pressionar ctrl+c ou ctrl+d sempre retornará o valor original da linha de comando.
+
+```toml
+exit_mode = "return-query"
+```
+
+### `history_format`
+
+Padrão para `history list`
+
+O formato do histórico permite que você configure o formato padrão da `history list` - que também pode ser especificado com o argumento --format.
+
+O argumento --format especificado priorizará a configuração quando ambos estiverem presentes.
+
+Mais sobre [history list](https://docs.atuin.sh/reference/list/)
+
+### `history_filter`
+
+O filtro de histórico permite que você exclua comandos do rastreamento de histórico - talvez você queira manter TODOS os seus `curl` comandos totalmente fora do seu histórico de shell, ou talvez apenas alguns que correspondam a um padrão.
+
+Isso suporta expressões regulares, então você pode esconder praticamente o que quiser!
+
+```toml
+## Observe que essas expressões regulares não são ancoradas, ou seja, se não começarem
+## com ^ ou terminarem com $, elas corresponderão em qualquer lugar do comando.
+history_filter = [
+   "^secret-cmd",
+   "^innocuous-cmd .*--secret=.+"
+]
+```
+
+### `cwd_filter`
+
+O filtro cwd permite que você exclua diretórios do rastreamento de histórico.
+
+Isso suporta expressões regulares, então você pode esconder praticamente o que quiser!
+
+```toml
+## Observe que essas expressões regulares não são ancoradas, ou seja, se não começarem
+## com ^ ou terminarem com $, elas corresponderão em qualquer lugar do comando.
+# cwd_filter = [
+#   "^/very/secret/directory",
+# ]
+```
+
+Depois de atualizar esse parâmetro, você pode executar [o comando prune](/reference/prune/) para remover entradas de histórico antigas que correspondam aos novos filtros.
+
+### `store_failed`
+
+Versão do Atuin: >= 18.3.0
+
+Padrão: `true`
+
+```toml
+store_failed = true
+```
+
+Configura se deve ou não armazenar comandos que falharam (aqueles com status de saída diferente de zero).
+
+### `secrets_filter`
+
+Versão do Atuin: >= 17.0
+
+Padrão: `true`
+
+```toml
+secrets_filter = true
+```
+
+Isso compara o histórico com um conjunto de regex padrão e não o salvará se houver uma correspondência. Os padrões incluem
+
+1. ID da chave AWS
+2. PAT do Github (antigo e novo)
+3. Tokens OAuth do Slack (bot, usuário)
+4. Webhooks do Slack
+5. Chaves de teste/produção do Stripe
+6. Comando de login do Atuin
+7. Padrões de variáveis de ambiente de nuvem (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AZURE_STORAGE_CLASS_KEY`, `GOOGLE_SERVICE_ACCOUNT_KEY`)
+8. Tokens de autenticação do Netlify
+9. PAT do Npm
+10. PAT do Pulumi
+
+### Atalhos de teclado <kbd>Ctrl-n</kbd> do macOS
+
+Padrão: `true`
+
+O macOS não possui uma tecla <kbd>Alt</kbd>, embora os emuladores de terminal possam frequentemente ser configurados para mapear a tecla <kbd>Option</kbd> para ser usada como <kbd>Alt</kbd>. _No entanto_, remapear <kbd>Option</kbd> dessa forma pode impedir a digitação de alguns caracteres, como usar <kbd>Option-3</kbd> para digitar `#` no layout inglês britânico. Para tal cenário, defina a opção `ctrl_n_shortcuts` como `true` em seu arquivo de configuração para substituir os atalhos <kbd>Alt-0</kbd> a <kbd>Alt-9</kbd> por <kbd>Ctrl-0</kbd> a <kbd>Ctrl-9</kbd> em vez disso:
+
+```toml
+# Usar Ctrl-0 .. Ctrl-9 em vez de Alt-0 .. Alt-9 atalhos de UI
+ctrl_n_shortcuts = true
+```
+
+### `network_timeout`
+
+Versão do Atuin: >= 18.0
+
+Padrão: `30`
+
+A quantidade máxima de tempo (em segundos) para esperar por uma solicitação de rede. Se alguma
+operação com um servidor de sincronização demorar mais do que isso, o código falhará -
+rather than wait indefinitely.
+
+### `network_connect_timeout`
+
+Versão do Atuin: >= 18.0
+
+Padrão: `5`
+
+O tempo máximo (em segundos) que esperamos por uma conexão para ser estabelecida com um
+servidor de sincronização remoto. Qualquer tempo maior que isso e a solicitação falhará.
+
+### `local_timeout`
+
+Versão do Atuin: >= 18.0
+
+Padrão: `5`
+
+Tempo limite (em segundos) para adquirir uma conexão de banco de dados local (sqlite).
+
+### `enter_accept`
+
+Versão do Atuin: >= 17.0
+
+Padrão: `false`
+
+Não suportado pelo NuShell atualmente
+
+Quando definido como true, o Atuin padronizará a execução imediata de um comando, em vez de
+o usuário ter que pressionar enter duas vezes. Pressionar tab retornará ao
+shell e dará ao usuário a chance de editar.
+
+Isso tecnicamente padroniza para true para novos usuários, mas false para usuários existentes. Nós
+definimos `enter_accept = true` no arquivo de configuração padrão. Isso provavelmente
+mudará para ser o padrão para todos em uma versão posterior.
+
+### `keymap_mode`
+
+Versão do Atuin: >= 18.0
+
+Padrão: `emacs`
+
+O modo de mapa de teclas inicial da pesquisa interativa do Atuin (por exemplo, iniciada pelas
+vinculações de teclas nos shells). Existem quatro valores suportados: `"emacs"`,
+`"vim-normal"`, `"vim-insert"`, e `"auto"`. O modo de mapa de teclas `"emacs"` é o
+mais básico. No modo de mapa de teclas `"vim-normal"`, você pode usar <kbd>k</kbd>
+e <kbd>j</kbd> para navegar na lista de histórico como no Vim, enquanto pressionar
+<kbd>i</kbd> muda o modo de mapa de teclas para `"vim-insert"`. No modo de mapa de teclas `"vim-insert"`,
+você pode pesquisar uma string como no modo de mapa de teclas `"emacs"`, enquanto pressionar <kbd>
+  Esc
+</kbd> muda o modo de mapa de teclas para `"vim-normal"`. Quando definido como `"auto"`, o modo de mapa de teclas inicial
+é determinado automaticamente com base no mapa de teclas do shell que acionou
+a pesquisa do Atuin. `"auto"` não é suportado pelo NuShell atualmente, onde ele
+sempre acionará a pesquisa do Atuin com o modo de mapa de teclas `"emacs"`.
+
+### `keymap_cursor`
+
+Versão do Atuin: >= 18.0
+
+Padrão: `(dicionário vazio)`
+
+O estilo do cursor do terminal associado a cada modo de mapa de teclas na pesquisa do Atuin.
+Isso é especificado por um dicionário cujas chaves e valores são os
+nomes dos mapas de teclas e os estilos do cursor, respectivamente. Uma chave especifica um dos
+mapas de teclas de `emacs`, `vim_insert`, e `vim_normal`. Um valor é um dos
+estilos de cursor, `default` ou `{blink,steady}-{block,underline,bar}`. O
+seguinte é um exemplo.
+
+```toml
+keymap_cursor = { emacs = "blink-block", vim_insert = "blink-block", vim_normal = "steady-block" }
+```
+
+Se o estilo do cursor for especificado, o estilo do cursor do terminal será alterado para o
+especificado quando a pesquisa do Atuin iniciar com ou mudar para o
+modo de mapa de teclas correspondente. Além disso, o estilo do cursor do terminal é redefinido para o
+associado ao modo de mapa de teclas correspondente ao mapa de teclas do shell na
+terminação da pesquisa do Atuin.
+
+### `prefers_reduced_motion`
+
+Versão do Atuin: >= 18.0
+
+Padrão: `false`
+
+Habilite isso, e o Atuin reduzirá o movimento na TUI o máximo possível. Usuários
+com sensibilidade ao movimento podem achar os carimbos de data/hora de atualização ao vivo distrativos.
+
+Alternativamente, defina a variável de ambiente NO_MOTION
+
+## Estatísticas
+
+Esta seção da configuração do cliente é especificamente para configurar os cálculos de estatísticas do Atuin.
+
+```
+[stats]
+common_subcommands = [...]
+common_prefix = [...]
+```
+
+### `common_subcommands`
+
+Padrão:
+
+```toml
+common_subcommands = [
+  "apt",
+  "cargo",
+  "composer",
+  "dnf",
+  "docker",
+  "git",
+  "go",
+  "ip",
+  "kubectl",
+  "nix",
+  "nmcli",
+  "npm",
+  "pecl",
+  "pnpm",
+  "podman",
+  "port",
+  "systemctl",
+  "tmux",
+  "yarn",
+]
+```
+
+Configura comandos onde devemos considerar o subcomando como parte das estatísticas. Por exemplo, considere `kubectl get` em vez de apenas `kubectl`.
+
+### `common_prefix`
+
+Versão do Atuin: >= 17.1
+
+Padrão:
+
+```toml
+common_prefix = [
+  "sudo",
+]
+```
+
+Configura comandos que devem ser totalmente removidos dos cálculos de estatísticas. Por exemplo, 'sudo' deve ser ignorado.
+
+## sincronização
+
+Desenvolvemos uma nova versão de sincronização, que é mais rápida e eficiente que a versão original.
+
+Atualmente, é o padrão para novas instalações, mas não para usuários existentes. Isso mudará em uma versão posterior.
+
+Para habilitar a sincronização v2, adicione o seguinte à sua configuração:
+
+```toml
+[sync]
+records = true
+```
+
+## `dotfiles`
+
+Versão do Atuin: >= 18.1
+
+Padrão: `false`
+
+Para habilitar a sincronização de aliases de shell entre hosts. Requer `sync` habilitado.
+
+Adicione a nova seção ao final do seu arquivo de configuração, para cada máquina que você usa o Atuin.
+
+```toml
+[dotfiles]
+enabled = true
+```
+
+Nota: você precisará ter a sincronização v2 habilitada. Veja a seção acima.
+
+Gerencie aliases usando as opções de linha de comando
+
+```
+# Alias 'k' para 'kubectl'
+atuin dotfiles alias set k kubectl
+
+# Listar todos os aliases
+atuin dotfiles alias list
+
+# Excluir um alias
+atuin dotfiles alias delete k
+```
+
+Depois de definir um alias, você precisará reiniciar seu shell ou carregar o arquivo init para que a alteração tenha efeito.
+
+## chaves
+
+Esta seção da configuração do cliente é especificamente para configurar as configurações relacionadas a chaves.
+
+```
+[keys]
+scroll_exits = [...]
+prefix = 'a'
+```
+
+### `scroll_exits`
+
+Versão do Atuin: >= 18.1
+
+Padrão: `true`
+
+Configura se a TUI sai, quando rolada além da última ou primeira entrada.
+
+### `prefix`
+
+Versão do Atuin: > 18.3
+
+Padrão: `a`
+
+Qual chave usar como prefixo
+
+## prévia
+
+Esta seção da configuração do cliente é especificamente para configurar as configurações relacionadas à prévia.
+(No futuro, as outras 2 configurações de prévia serão movidas para cá.)
+
+```
+[preview]
+strategy = [...]
+```
+
+### `strategy`
+
+Versão do Atuin: >= 18.3
+
+Padrão: `auto`
+
+Qual estratégia de prévia é usada para calcular a altura da prévia. Respeita `max_preview_height`.
+
+| Valor          | A altura da prévia é calculada a partir do comprimento do |
+| -------------- | --------------------------------------------------- |
+| auto (padrão) | comando selecionado                                    |
+| static         | comando mais longo no conjunto de resultados atual           |
+| fixed          | usar `max_preview_height` como valor fixo             |
+
+Ao usar `auto`, uma prévia é mostrada, se o comando for mais longo que a largura do terminal.
+
+## Daemon
+
+Versão do Atuin: >= 18.3
+
+Padrão: `false`
+
+Habilita o daemon em segundo plano
+
+Adicione a nova seção ao final do seu arquivo de configuração
+
+```toml
+[daemon]
+enabled = true
+```
+
+### sync_frequency
+
+Padrão: `300`
+
+Com que frequência o daemon deve sincronizar, em segundos
+
+```toml
+sync_frequency = 300
+```
+
+### socket_path
+
+Padrão:
+
+```toml
+socket_path = "~/.local/share/atuin/atuin.sock"
+```
+
+Onde vincular um socket unix para comunicação cliente -> daemon
+
+Se XDG_RUNTIME_DIR estiver disponível, então usamos este diretório em vez disso.
+
+### systemd_socket
+
+Padrão `false`
+
+Use um socket passado via protocolo de ativação de socket systemd em vez do caminho
+
+```toml
+systemd_socket = false
+```
+
+### tcp_port
+
+Padrão: `8889`
+
+A porta a ser usada para comunicação cliente -> daemon. Usado apenas em sistemas não-unix.
+
+```toml
+tcp_port = 8889
+```
+
+## tema
+
+Versão do Atuin: >= 18.4
+
+O tema a ser usado para mostrar a interface do terminal.
+
+```toml
+[theme]
+name = ""
+debug = false
+max_depth = 10
+```
+
+### `name`
+
+Padrão: `""`
+
+Um nome de tema que deve estar presente como um tema embutido (uma string vazia para o padrão,
+`autumn` ou `marine`), ou encontrado no diretório de temas, com o sufixo `.toml`.
+Por padrão, este é `~/.config/atuin/themes/`, mas pode ser substituído pela
+variável de ambiente `ATUIN_THEME_DIR`.
+
+```toml
+name = "meu-tema"
+```
+
+### `debug`
+
+Padrão: `false`
+
+Informações de saída sobre por que um tema não será carregado. Independente de outros níveis de log,
+pois pode fazer com que dados do arquivo de tema sejam impressos sem filtro no
+terminal.
+
+```toml
+debug = false
+```
+
+### `max_depth`
+
+Padrão: 10
+
+Número de níveis de "parentesco" que serão percorridos para um tema. Isso não deve
+precisar ser adicionado ou alterado em uso normal.
+
+```toml
+max_depth = 10
+```

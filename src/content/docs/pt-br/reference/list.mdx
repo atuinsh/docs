@@ -1,0 +1,33 @@
+---
+title: listar histórico
+---
+
+# `atuin history list`
+
+
+| Argumento              | Descrição                                                                   |
+|------------------|-------------------------------------------------------------------------------|
+| `--cwd`/`-c`     | Listar histórico apenas para o diretório atual (padrão: todos os diretórios)               |
+| `--session`/`-s` | Listar histórico apenas para a sessão atual (padrão: falso)                    |
+| `--human`        | Usar formatação legível para o carimbo de data/hora e duração (padrão: falso) |
+| `--cmd-only`     | Mostrar apenas o texto do comando (padrão: falso)                            |
+| `--reverse`      | Inverter a ordem da saída (padrão: falso)                              |
+| `--format`       | Especificar a formatação de um comando (veja abaixo)                               |
+| `--print0`       | Terminar a saída com um nulo, para melhor suporte a várias linhas                                                                              |
+
+
+## Formato
+
+Personalize a saída de `history list`
+
+Exemplo
+
+```sh
+atuin history list --format "{time} - {duration} - {command}"
+```
+
+Variáveis suportadas
+
+```sh
+{command}, {directory}, {duration}, {user}, {host} e {time}
+```

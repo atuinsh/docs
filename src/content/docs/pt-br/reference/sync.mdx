@@ -1,0 +1,67 @@
+---
+title: sincronizar
+---
+
+Atuin pode fazer backup do seu histórico para um servidor e usá-lo para garantir que várias máquinas tenham o mesmo histórico de shell. Tudo isso é criptografado de ponta a ponta, então o operador do servidor _nunca_ poderá ver seus dados!
+
+Qualquer um pode hospedar um servidor (tente `atuin server start`, mais documentos a seguir), mas eu hospedo um em https://api.atuin.sh. Este é o endereço do servidor padrão, que pode ser alterado na [configuração](/configuration/config#sync_address). Novamente, eu _não_ consigo ver seus dados e não quero.
+
+## Frequência de sincronização
+
+A sincronização acontecerá automaticamente, a menos que configurado de outra forma. A frequência de sincronização é configurável em [configuração](/configuration/config#sync_frequency).
+
+## Sincronizar
+
+Você pode acionar manualmente uma sincronização com `atuin sync`
+
+## Registrar
+
+Registre-se para uma conta de sincronização com
+
+```sh
+atuin register -u <USERNAME> -e <EMAIL> -p <PASSWORD>
+```
+
+Se você não quiser que sua senha seja incluída no histórico do shell, você pode omitir a flag de senha e será solicitado a fornecê-la via stdin.
+
+Os nomes de usuário devem ser únicos e conter apenas caracteres alfanuméricos ou hífens, e os e-mails devem ser usados apenas para notificações importantes (violações de segurança, alterações no serviço, etc.).
+
+Após o sucesso, você também está logado :) A sincronização deve acontecer automaticamente a partir daqui!
+
+## Excluir
+
+Você pode excluir sua conta de sincronização com
+
+```sh
+atuin account delete
+```
+
+Isso removerá sua conta e todo o histórico sincronizado do servidor. Os dados locais não serão tocados!
+
+## Chave
+
+Como todos os seus dados são criptografados, o Atuin gera uma chave para você. Ela é armazenada no diretório de dados do Atuin (`~/.local/share/atuin` no Linux).
+
+Você também pode obtê-la com
+
+```sh
+atuin key
+```
+
+Nunca compartilhe isso com ninguém!
+
+## Login
+
+Se você quiser fazer login em uma nova máquina, você precisará de sua chave de criptografia (`atuin key`).
+
+```sh
+atuin login -u <USERNAME> -p <PASSWORD> -k <KEY>
+```
+
+Se você não quiser que sua senha seja incluída no histórico do shell, você pode omitir a flag de senha e será solicitado a fornecê-la via stdin.
+
+## Logout
+
+```sh
+atuin logout
+```

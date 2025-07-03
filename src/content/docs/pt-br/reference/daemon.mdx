@@ -1,0 +1,31 @@
+---
+title: daemon
+---
+
+# `atuin daemon`
+_Isso é experimental!_
+
+O daemon do Atuin é um daemon em segundo plano projetado para
+
+1. Acelerar as gravações no banco de dados
+2. Permitir que as máquinas sincronizem quando não estiverem em uso, para que estejam prontas para uso imediatamente
+3. Realizar manutenção em segundo plano
+
+Também pode contornar problemas de desempenho com ZFS/SQLite.
+
+Atualmente é experimental, mas é seguro usar com um pouco de configuração.
+
+## Para habilitar
+
+Adicione o seguinte ao final do seu arquivo de configuração do Atuin
+
+```toml
+[daemon]
+enabled = true
+```
+
+Em seguida, execute `atuin daemon`. Isso pode fazer sentido em uma sessão tmux, unidade systemd, etc. Assim que estiver pronto para uso mais amplo, nós cuidaremos dessa configuração para você.
+
+## Configuração extra
+
+Veja a [seção de configuração](/configuration/config/#daemon)

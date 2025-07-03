@@ -1,0 +1,132 @@
+---
+title: Docker
+---
+
+:::caution
+Se você está auto-hospedando, sugerimos fortemente que você se atenha às [versões marcadas](https://github.com/atuinsh/atuin/releases), e não siga `main` ou `latest`
+
+Siga os lançamentos do GitHub e leia as notas de cada lançamento. Na maioria das vezes, as atualizações podem ocorrer sem qualquer intervenção manual.
+
+Não podemos garantir que todas as atualizações serão aplicadas de forma limpa, e algumas podem exigir algumas etapas extras.
+:::
+
+Existe uma imagem docker fornecida para facilitar a implantação de um servidor como um contêiner. A "ÚLTIMA VERSÃO MARCADA" pode ser encontrada na [página de lançamentos](https://github.com/atuinsh/atuin/releases).
+
+```sh
+docker run -d -v "$HOME/.config/atuin:/config" ghcr.io/atuinsh/atuin:<LATEST TAGGED RELEASE> server start
+```
+
+# Docker Compose
+
+Usando a imagem docker já construída, hospedar seu próprio Atuin pode ser feito usando o arquivo docker-compose fornecido.
+
+Crie um arquivo `.env` ao lado de [`docker-compose.yml`](https://github.com/atuinsh/atuin/raw/main/docker-compose.yml) com conteúdo como este:
+
+```ini
+ATUIN_DB_NAME=atuin
+ATUIN_DB_USERNAME=atuin
+# Escolha sua própria senha segura
+ATUIN_DB_PASSWORD=really-insecure
+```
+
+Crie um `docker-compose.yml`:
+
+```yaml
+version: '3.5'
+services:
+  atuin:
+    restart: always
+    image: ghcr.io/atuinsh/atuin:<LATEST TAGGED RELEASE>
+    command: server start
+    volumes:
+      - "./config:/config"
+    links:
+      - postgresql:db
+    ports:
+      - 8888:8888
+    environment:
+      ATUIN_HOST: "0.0.0.0"
+      ATUIN_OPEN_REGISTRATION: "true"
+      ATUIN_DB_URI: postgres://$ATUIN_DB_USERNAME:$ATUIN_DB_PASSWORD@db/$ATUIN_DB_NAME
+      RUST_LOG: info,atuin_server=debug
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    volumes: # Não remova o armazenamento permanente para arquivos de banco de dados de índice!
+      - "./database:/var/lib/postgresql/data/"
+    environment:
+      POSTGRES_USER: ${ATUIN_DB_USERNAME}
+      POSTGRES_PASSWORD: ${ATUIN_DB_PASSWORD}
+      POSTGRES_DB: ${ATUIN_DB_NAME}
+```
+
+Inicie os serviços usando `docker compose`:
+
+```sh
+docker compose up -d
+```
+
+## Usando systemd para gerenciar seu servidor atuin
+
+O seguinte arquivo de unidade `systemd` para gerenciar seu serviço gerenciado por `docker-compose`:
+
+```ini
+[Unit]
+Description=Docker Compose Atuin Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+# Onde o arquivo docker-compose está localizado
+WorkingDirectory=/srv/atuin-server
+ExecStart=/usr/bin/docker compose up
+ExecStop=/usr/bin/docker compose down
+TimeoutStartSec=0
+Restart=on-failure
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Inicie e habilite o serviço com:
+
+```sh
+systemctl enable --now atuin
+```
+
+Verifique se está em execução com:
+
+```sh
+systemctl status atuin
+```
+
+## Criando backups do banco de dados Postgres
+
+Você pode adicionar outro serviço ao seu arquivo `docker-compose.yml` para que ele execute backups diários. Deve ser assim:
+
+```yaml
+  backup:
+    container_name: atuin_db_dumper
+    image: prodrigestivill/postgres-backup-local
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: postgresql
+      POSTGRES_DB: ${ATUIN_DB_NAME}
+      POSTGRES_USER: ${ATUIN_DB_USERNAME}
+      POSTGRES_PASSWORD: ${ATUIN_DB_PASSWORD}
+      SCHEDULE: "@daily"
+      BACKUP_DIR: /db_dumps
+    volumes:
+      - ./db_dumps:/db_dumps
+    depends_on:
+      - postgresql
+```
+
+Isso criará backups diários do seu banco de dados para essa camada adicional de conforto.
+
+
+:::caution
+ATENÇÃO: A montagem `./db_dumps` DEVE ser um sistema de arquivos compatível com POSIX para armazenar os backups (principalmente com suporte para hardlinks e softlinks). Assim, sistemas de arquivos como VFAT, EXFAT, SMB/CIFS, ... não podem ser usados com esta imagem docker. Veja https://github.com/prodrigestivill/docker-postgres-backup-local para mais detalhes sobre como isso funciona. Existem configurações adicionais para o número de backups retidos, etc., tudo explicado na página vinculada.
+:::
