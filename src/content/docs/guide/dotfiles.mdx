@@ -9,7 +9,7 @@ to work with.
 At the moment, we support managing and syncing of shell aliases and environment variables - with more
 coming soon.
 
-The following shells are supported: 
+The following shells are supported:
 
 - zsh
 - bash
@@ -23,7 +23,7 @@ no longer need to edit your config files manually.
 
 Once Atuin is setup and installed, the following is required in your config file (`~/.config/atuin/config.toml`)
 
-```
+```toml
 [dotfiles]
 enabled = true
 ```
@@ -32,7 +32,7 @@ In a later release, this will be enabled by default.
 
 Note: If you have not yet setup sync v2, please also add
 
-```
+```toml
 [sync]
 records = true
 ```
@@ -43,24 +43,24 @@ to the same config file.
 
 ## Aliases
 
-After creating or deleting an alias, remember to restart your shell! 
+After creating or deleting an alias, remember to restart your shell!
 
 ### Creating an alias
 
-```
+```bash
 atuin dotfiles alias set NAME 'COMMAND'
 ```
 
 For example, to alias `k` to be `kubectl`
 
 
-```
+```bash
 atuin dotfiles alias set k 'kubectl'
 ```
 
 or to alias `ll` to be  `ls -lah`
 
-```
+```bash
 atuin dotfiles alias set ll 'ls -lah'
 ```
 
@@ -68,13 +68,13 @@ atuin dotfiles alias set ll 'ls -lah'
 
 Deleting an alias is as simple as:
 
-```
+```bash
 atuin dotfiles alias delete NAME
 ```
 
 For example, to delete the above alias `k`:
 
-```
+```bash
 atuin dotfiles alias delete k
 ```
 
@@ -82,30 +82,30 @@ atuin dotfiles alias delete k
 
 You can list all aliases with:
 
-```
+```bash
 atuin dotfiles alias list
 ```
 
 ## Env vars
 
-After creating or deleting an env var, remember to restart your shell! 
+After creating or deleting an env var, remember to restart your shell!
 
-### Creating a var 
+### Creating a var
 
-```
+```bash
 atuin dotfiles var set NAME 'value'
 ```
 
 For example, to set `FOO` to be `bar`
 
 
-```
+```bash
 atuin dotfiles var set FOO 'bar'
 ```
 
 Vars are exported by default, but you can create a shell var like so
 
-```
+```bash
 atuin dotfiles var set -n foo 'bar'
 ```
 
@@ -114,13 +114,13 @@ atuin dotfiles var set -n foo 'bar'
 
 Deleting a var is as simple as:
 
-```
+```bash
 atuin dotfiles var delete NAME
 ```
 
 For example, to delete the above var `FOO`:
 
-```
+```bash
 atuin dotfiles var delete FOO
 ```
 
@@ -128,14 +128,14 @@ atuin dotfiles var delete FOO
 
 You can list all vars with:
 
-```
+```bash
 atuin dotfiles var list
 ```
 
 ## Syncing and backing up dotfiles
-If you have [setup sync](/guide/sync), then running 
+If you have [setup sync](/guide/sync), then running
 
-```
+```bash
 atuin sync
 ```
 
