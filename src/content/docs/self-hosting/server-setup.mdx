@@ -56,6 +56,12 @@ These will create the database in the /config directory.
 
 You will need to map some sort of persistent volume for the /config directory and it should be writable by the atuin server.
 
+### Log Levels
+
+You can set `RUST_LOG` environment variable to configure the log level for the server.
+
+For example `RUST_LOG=debug atuin server start` is useful while debugging an issue.
+
 ### TLS
 
 The server supports TLS through the `[tls]` section:
