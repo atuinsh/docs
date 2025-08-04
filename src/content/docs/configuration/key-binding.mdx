@@ -62,6 +62,21 @@ macOS does not have an <kbd>Alt</kbd> key, although terminal emulators can often
 ctrl_n_shortcuts = true
 ```
 
+Ghostty on Linux maps <kbd>Alt-1</kbd> .. <kbd>Alt-9</kbd> for switching between tabs by number. To disable this behavior either add the following to ~/.config/ghostty/config:
+```
+keybind=alt+one=unbind
+keybind=alt+two=unbind
+keybind=alt+three=unbind
+keybind=alt+four=unbind
+keybind=alt+five=unbind
+keybind=alt+six=unbind
+keybind=alt+seven=unbind
+keybind=alt+eight=unbind
+keybind=alt+nine=unbind
+```
+(this will disable tab switching by <kbd>Alt-n</kbd>)
+or use the `ctrl_n_shortcuts` as outlined above.
+
 ## zsh
 
 If you'd like to customize your bindings further, it's possible to do so with custom shell config:
