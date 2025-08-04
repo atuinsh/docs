@@ -404,6 +404,14 @@ Default: `5`
 
 Timeout (in seconds) for acquiring a local database connection (sqlite).
 
+### `command_chaining`
+
+Atuin version: >= 18.8
+
+Default: `false`
+
+Allows building a command chain with the `&&` or `||` operator. When enabled, opening atuin will search for the next command in the chain, and append to the current buffer.
+
 ### `enter_accept`
 
 Atuin version: >= 17.0
@@ -431,6 +439,7 @@ keybindings in the shells). There are four supported values: `"emacs"`,
 `"vim-normal"`, `"vim-insert"`, and `"auto"`. The keymap mode `"emacs"` is the
 most basic one. In the keymap mode `"vim-normal"`, you may use <kbd>k</kbd>
 and <kbd>j</kbd> to navigate the history list as in Vim, whilst pressing
+
 <kbd>i</kbd> changes the keymap mode to `"vim-insert"`. In the keymap mode `"vim-insert"`,
 you can search for a string as in the keymap mode `"emacs"`, while pressing <kbd>
   Esc
