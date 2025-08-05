@@ -49,6 +49,10 @@ eval "$(atuin init zsh)"
 
 You can then choose to bind Atuin if needed, do this after the call to init.
 
+## Enter key behavior
+
+By default, the `enter` key will directly execute the selected command instead of letting you edit it like the `tab` key. If you want to change this behavior, set `enter_accept = false` in your config. For more details: [enter_accept](https://docs.atuin.sh/configuration/config/#enter_accept).
+
 ## <kbd>Ctrl-n</kbd> key shortcuts
 
 macOS does not have an <kbd>Alt</kbd> key, although terminal emulators can often be configured to map the <kbd>Option</kbd> key to be used as <kbd>Alt</kbd>. *However*, remapping <kbd>Option</kbd> this way may prevent typing some characters, such as using <kbd>Option-3</kbd> to type `#` on the British English layout. For such a scenario, set the `ctrl_n_shortcuts` option to `true` in your config file to replace <kbd>Alt-0</kbd> to <kbd>Alt-9</kbd> shortcuts with <kbd>Ctrl-0</kbd> to <kbd>Ctrl-9</kbd> instead:
@@ -86,7 +90,7 @@ used in combination with the config
 
 ## bash
 
-Atuin provides a bindable shell function "`_atuin_history`" for keybindings in
+Atuin provides a bindable shell function "`__atuin_history`" for keybindings in
 Bash.  The flag `--shell-up-key-binding` can be optionally specified to the
 first argument for keybindings to the <kbd>up</kbd> key or similar keys.
 

@@ -49,7 +49,7 @@ services:
       ATUIN_OPEN_REGISTRATION: "true"
       ATUIN_DB_URI: postgres://$ATUIN_DB_USERNAME:$ATUIN_DB_PASSWORD@db/$ATUIN_DB_NAME
       RUST_LOG: info,atuin_server=debug
-  postgresql:
+  db:
     image: postgres:14
     restart: unless-stopped
     volumes: # Don't remove permanent storage for index database files!
