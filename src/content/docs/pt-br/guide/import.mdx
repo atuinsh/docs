@@ -1,0 +1,21 @@
+---
+title: Importar histórico existente
+---
+
+O Atuin usa um plugin de shell para garantir que capturemos o novo histórico de shell. Mas para
+o histórico mais antigo, você precisará importá-lo
+
+Isso importará o histórico para o seu shell atual:
+
+```sh
+atuin import auto
+```
+
+Alternativamente, você pode especificar o shell assim:
+
+```sh
+atuin import bash
+atuin import zsh # etc
+```
+
+Seu arquivo de histórico de shell antigo continuará sendo atualizado, independentemente do uso do Atuin.

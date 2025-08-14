@@ -1,0 +1,142 @@
+---
+title: Sincronizando dotfiles
+---
+
+Embora o Atuin tenha começado como uma ferramenta para sincronizar e pesquisar o histórico do shell, estamos
+construindo ferramentas para sincronizar dotfiles entre máquinas, e torná-los mais fáceis
+de trabalhar.
+
+No momento, suportamos o gerenciamento e a sincronização de aliases de shell e variáveis de ambiente - com mais
+novidades em breve.
+
+Os seguintes shells são suportados:
+
+- zsh
+- bash
+- fish
+- xonsh
+
+Nota: O Atuin gerencia sua configuração internamente, então, uma vez instalado, você
+não precisa mais editar seus arquivos de configuração manualmente.
+
+# Configuração necessária
+
+Uma vez que o Atuin esteja configurado e instalado, o seguinte é necessário no seu arquivo de configuração (`~/.config/atuin/config.toml`)
+
+```toml
+[dotfiles]
+enabled = true
+```
+
+Em uma versão posterior, isso será habilitado por padrão.
+
+
+:::caution
+Nota: Se você ainda não configurou a sincronização v2, por favor, adicione também para o mesmo arquivo de configuração.
+
+```toml
+[sync]
+records = true
+```
+:::
+
+# Uso
+
+## Aliases
+
+Depois de criar ou excluir um alias, lembre-se de reiniciar seu shell!
+
+### Criando um alias
+
+```sh
+atuin dotfiles alias set NOME 'COMANDO'
+```
+
+Por exemplo, para criar um alias `k` para ser `kubectl`
+
+
+```sh
+atuin dotfiles alias set k 'kubectl'
+```
+
+ou para criar um alias `ll` para ser  `ls -lah`
+
+```sh
+atuin dotfiles alias set ll 'ls -lah'
+```
+
+### Excluindo um alias
+
+Excluir um alias é tão simples quanto:
+
+```sh
+atuin dotfiles alias delete NOME
+```
+
+Por exemplo, para excluir o alias `k` acima:
+
+```sh
+atuin dotfiles alias delete k
+```
+
+### Listando aliases
+
+You can list all aliases with:
+
+```sh
+atuin dotfiles alias list
+```
+
+## Variáveis de ambiente
+
+Depois de criar ou excluir uma variável de ambiente, lembre-se de reiniciar seu shell!
+
+### Criando uma variável
+
+```sh
+atuin dotfiles var set NOME 'valor'
+```
+
+Por exemplo, para definir `FOO` como `bar`
+
+
+```sh
+atuin dotfiles var set FOO 'bar'
+```
+
+As variáveis são exportadas por padrão, mas você pode criar uma variável de shell assim:
+
+```sh
+atuin dotfiles var set -n foo 'bar'
+```
+
+
+### Excluindo uma variável
+
+Excluir uma variável é tão simples quanto:
+
+```sh
+atuin dotfiles var delete NOME
+```
+
+Por exemplo, para excluir a variável `FOO` acima:
+
+```sh
+atuin dotfiles var delete FOO
+```
+
+### Listando variáveis
+
+You can list all vars with:
+
+```sh
+atuin dotfiles var list
+```
+
+## Sincronizando e fazendo backup de dotfiles
+Se você [configurou a sincronização](/guide/sync), então executar fará backup da sua configuração para o servidor e a sincronizará entre as máquinas.
+
+```sh
+atuin sync
+```
+

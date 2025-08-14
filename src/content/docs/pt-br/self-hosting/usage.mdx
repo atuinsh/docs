@@ -1,0 +1,17 @@
+---
+title: Usando um servidor auto-hospedado
+---
+
+:::caution
+Se você está auto-hospedando, sugerimos fortemente que você se atenha às versões marcadas (tagged releases), e não siga `main` ou `latest`
+
+Siga os lançamentos do GitHub, e por favor leia as notas para cada lançamento. Na maioria das vezes, as atualizações podem ocorrer sem qualquer intervenção manual.
+
+Não podemos garantir que todas as atualizações serão aplicadas de forma limpa, e algumas podem exigir algumas etapas extras.
+:::
+
+## Configuração do cliente
+
+Para usar um servidor auto-hospedado com o Atuin, você precisará configurar o `sync_address` no arquivo de configuração em `~/.config/atuin/config.toml`. Consulte a página de [configuração](/configuration/config/#sync_address) para mais detalhes sobre como definir o `sync_address`.
+
+Alternativamente, você pode definir a variável de ambiente `ATUIN_SYNC_ADDRESS` para o host correto, por exemplo: `ATUIN_SYNC_ADDRESS=https://api.atuin.sh`.

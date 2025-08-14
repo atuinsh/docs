@@ -1,0 +1,39 @@
+---
+title: Perguntas Frequentes
+---
+
+## Como removo a vinculação padrão da seta para cima?
+
+Abra o arquivo de configuração do seu shell, encontre a linha que contém `atuin init`.
+
+Adicione `--disable-up-arrow`
+
+Exemplo:
+
+```
+eval "$(atuin init zsh --disable-up-arrow)"
+```
+
+Veja [vinculação de teclas](https://docs.atuin.sh/configuration/key-binding/) para mais informações.
+
+## Como edito um comando em vez de executá-lo imediatamente?
+
+Pressione tab! Por padrão, enter executará um comando, e tab o inserirá pronto para edição.
+
+Você pode fazer com que `enter` edite um comando colocando `enter_accept = false` no seu arquivo de configuração (~/.config/atuin/config.toml).
+
+## Como excluo minha conta?
+
+**Atenção:** Este comando não pede confirmação.
+
+```
+atuin account delete
+```
+
+Isso excluirá sua conta e todo o histórico do servidor remoto. Não excluirá seus dados locais.
+
+## Esqueci minha senha! Como posso redefini-la?
+
+Ainda não temos um sistema de redefinição de senha, pois não verificamos e-mails. Isso pode mudar em breve, mas, por enquanto, desde que você ainda esteja logado em pelo menos uma conta, é seguro excluir e recriar a conta.
+
+Estamos cientes de que isso não é o ideal.
