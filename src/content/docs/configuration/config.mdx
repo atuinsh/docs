@@ -161,7 +161,7 @@ Atuin version: >= 17.0
 
 Default: `fuzzy`
 
-The default searchmode to use when searching and being invoked from a shell up-key binding.
+The default search mode to use when searching and being invoked from a shell up-key binding.
 
 Accepts exactly the same options as `search_mode` above
 
@@ -356,7 +356,7 @@ secrets_filter = true
 This matches history against a set of default regex, and will not save it if we get a match. Defaults include
 
 1. AWS key id
-2. Github pat (old and new)
+2. GitHub pat (old and new)
 3. Slack oauth tokens (bot, user)
 4. Slack webhooks
 5. Stripe live/test keys
@@ -442,7 +442,7 @@ and <kbd>j</kbd> to navigate the history list as in Vim, whilst pressing
 
 <kbd>i</kbd> changes the keymap mode to `"vim-insert"`. In the keymap mode `"vim-insert"`,
 you can search for a string as in the keymap mode `"emacs"`, while pressing <kbd>
-  Esc
+    Esc
 </kbd> switches the keymap mode to `"vim-normal"`. When set to `"auto"`, the initial
 keymap mode is automatically determined based on the shell's keymap that triggered
 the Atuin search. `"auto"` is not supported by NuShell at present, where it will
@@ -486,7 +486,7 @@ Alternatively, set env var NO_MOTION
 
 This section of client config is specifically for configuring Atuin stats calculations
 
-```
+```toml
 [stats]
 common_subcommands = [...]
 common_prefix = [...]
@@ -568,7 +568,7 @@ Note: you will need to have sync v2 enabled. See the above section.
 
 Manage aliases using the command line options
 
-```
+```bash
 # Alias 'k' to 'kubectl'
 atuin dotfiles alias set k kubectl
 
@@ -579,13 +579,13 @@ atuin dotfiles alias list
 atuin dotfiles alias delete k
 ```
 
-After setting an alias, you will either need to restart your shell or source the init file for the change to take affect
+After setting an alias, you will either need to restart your shell or source the init file for the change to take effect
 
 ## keys
 
 This section of the client config is specifically for configuring key-related settings.
 
-```
+```toml
 [keys]
 scroll_exits = [...]
 prefix = 'a'
@@ -612,7 +612,7 @@ Which key to use as the prefix
 This section of the client config is specifically for configuring preview-related settings.
 (In the future the other 2 preview settings will be moved here.)
 
-```
+```toml
 [preview]
 strategy = [...]
 ```
@@ -709,7 +709,7 @@ Default: `""`
 
 A theme name that must be present as a built-in (an empty string for the default,
 `autumn` or `marine`), or found in the themes directory, with the suffix `.toml`.
-By default this is `~/.config/atuin/themes/` but can be overridden with the
+By default, this is `~/.config/atuin/themes/` but can be overridden with the
 `ATUIN_THEME_DIR` environment variable.
 
 ```toml
