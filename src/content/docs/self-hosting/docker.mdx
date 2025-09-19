@@ -25,14 +25,13 @@ Create a `.env` file next to [`docker-compose.yml`](https://github.com/atuinsh/a
 ```ini
 ATUIN_DB_NAME=atuin
 ATUIN_DB_USERNAME=atuin
-# Choose your own secure password
+# Choose your own secure password. Stick to [A-Za-z0-9.~_-]
 ATUIN_DB_PASSWORD=really-insecure
 ```
 
 Create a `docker-compose.yml`:
 
 ```yaml
-version: '3.5'
 services:
   atuin:
     restart: always
@@ -40,15 +39,15 @@ services:
     command: server start
     volumes:
       - "./config:/config"
-    links:
-      - postgresql:db
     ports:
       - 8888:8888
     environment:
       ATUIN_HOST: "0.0.0.0"
       ATUIN_OPEN_REGISTRATION: "true"
-      ATUIN_DB_URI: postgres://$ATUIN_DB_USERNAME:$ATUIN_DB_PASSWORD@db/$ATUIN_DB_NAME
+      ATUIN_DB_URI: postgres://${ATUIN_DB_USERNAME}:${ATUIN_DB_PASSWORD}@db/${ATUIN_DB_NAME}
       RUST_LOG: info,atuin_server=debug
+    depends_on:
+      - db
   db:
     image: postgres:14
     restart: unless-stopped
