@@ -1,0 +1,66 @@
+---
+title: Uso Básico
+---
+
+Agora que você está todo configurado e funcionando, aqui está um rápido passo a passo de como você pode usar o Atuin da melhor forma.
+
+## O que o Atuin registra?
+
+Enquanto você trabalha, o Atuin registra:
+
+1. O comando que você executa
+2. O diretório onde você o executou
+3. A hora em que você o executou e quanto tempo levou para ser executado
+4. O código de saída do comando
+5. O nome do host + usuário da máquina
+6. A sessão do shell em que você o executou
+
+## Abrindo e usando a TUI
+
+A qualquer momento, você pode abrir a TUI com as teclas de atalho padrão da seta para cima, ou control-R.
+
+Uma vez na TUI, pressione enter para executar imediatamente um comando, ou pressione tab para inseri-lo em seu shell para edição.
+
+Enquanto pesquisando na TUI, você pode ajustar o "modo de filtro" pressionando repetidamente ctrl-r. O Atuin pode filtrar por:
+
+1. Todos os hosts
+2. Apenas sua máquina local
+3. Apenas o diretório atual
+4. Apenas a sessão atual do shell
+
+## Ajuste de configuração comum
+
+Para um conjunto completo de valores de configuração, consulte a [página de referência de configuração](/configuration/config/)
+
+O arquivo de configuração padrão está localizado em `~/.config/atuin/config.toml`
+
+### Atalhos de teclado
+
+Temos uma página completa dedicada aos ajustes de atalhos de teclado, há uma série de opções aqui! Incluindo desabilitar a seta para cima se você não gostar.
+
+Leia mais [aqui](/configuration/key-binding/)
+
+### Enter para executar
+
+Você pode preferir que o Atuin sempre insira o comando selecionado para edição. Para configurar isso, defina
+
+```
+enter_accept = false
+```
+
+em seu arquivo de configuração.
+
+### Janela inline
+
+Se você achar a TUI em tela cheia opressora ou demais, você pode ajustá-la assim:
+
+```sh
+# altura da janela de pesquisa
+inline_height = 40
+```
+
+Você também pode preferir o modo de UI compacta
+
+```sh
+style = "compact"
+```

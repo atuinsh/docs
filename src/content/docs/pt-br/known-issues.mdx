@@ -1,0 +1,6 @@
+---
+title: Problemas Conhecidos
+---
+
+- SQLite tem alguns problemas com ZFS em certas configurações. Como o Atuin usa SQLite, isso pode fazer com que seu shell fique lento! Temos um [problema](https://github.com/atuinsh/atuin/issues/952) para rastrear, com algumas soluções alternativas.
+- SQLite também não costuma gostar de sistemas de arquivos de rede (por exemplo, NFS).

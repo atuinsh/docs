@@ -1,0 +1,24 @@
+---
+title: Integrações
+---
+
+## zsh-autosuggestions
+
+O Atuin se adiciona automaticamente como uma [estratégia de autosugestão](https://github.com/zsh-users/zsh-autosuggestions#suggestion-strategy).
+
+Se você quiser substituir isso, adicione sua própria configuração após "$(atuin init zsh)" no seu zshrc.
+
+## ble.sh auto-complete (Bash)
+
+Se o ble.sh estiver disponível quando a integração do Atuin for carregada no Bash, o Atuin define e registra automaticamente uma fonte de autocompletar para o recurso de autosugestão do ble.sh.
+
+Se você quiser alterar o comportamento, sobrescreva a função de shell `ble/complete/auto-complete/source:atuin-history` após `eval "$(atuin init bash)"` no seu `.bashrc`.
+
+Se você não quiser a fonte de autocompletar do Atuin, adicione a seguinte configuração após `eval "$(atuin init bash)"` no seu `.bashrc`:
+
+```shell
+# bashrc (depois de eval "$(atuin init bash)")
+
+ble/util/import/eval-after-load core-complete '\
+  ble/array#remove _ble_complete_auto_source atuin-history'
+```

@@ -1,0 +1,104 @@
+---
+title: Temas
+---
+
+Disponível no Atuin >= 18.4
+
+Para personalização da interface do terminal, o Atuin suporta temas de cores definidos pelo usuário e temas embutidos.
+
+O Atuin vem com apenas alguns temas alternativos embutidos, mas mais podem ser adicionados via arquivos TOML.
+
+# Configuração necessária
+
+O seguinte é necessário no seu arquivo de configuração (`~/.config/atuin/config.toml`)
+
+```
+[theme]
+name = "NOMEDOTEMA"
+```
+
+Onde `NOMEDOTEMA` é um tema conhecido. Os seguintes temas estão disponíveis prontos para uso:
+
+* tema padrão (pode ser explicitamente referenciado com um nome vazio `""`)
+* tema `autumn`
+* tema `marine`
+
+Estes estão presentes para garantir que usuários e desenvolvedores possam experimentar temas, mas, em geral, você precisará baixar temas ou criar os seus próprios.
+
+Se você estiver escrevendo seus próprios temas, pode adicionar a seguinte linha para obter saída adicional:
+
+```
+debug = true
+```
+
+para o mesmo bloco de configuração. Isso imprimirá quaisquer nomes de cores que não puderem ser analisados do tema solicitado.
+
+Uma configuração opcional final está disponível:
+
+```
+max_depth: 10
+```
+
+que define o número máximo de níveis de pais de tema a serem percorridos. Isso não deve precisar ser adicionado explicitamente em uso normal.
+
+# Uso
+
+## Estrutura do tema
+
+Temas são mapeamentos de *Significados*, descrevendo as intenções do desenvolvedor, para (atualmente) cores. No futuro, isso pode ser expandido para permitir um suporte de estilo mais rico.
+
+*Significados* são de um enum com os seguintes valores:
+
+* `AlertInfo`: alertando o usuário em um nível INFO
+* `AlertWarn`: alertando o usuário em um nível WARN
+* `AlertError`: alertando o usuário em um nível ERROR
+* `Annotation`: texto de suporte menos crítico
+* `Base`: cor de primeiro plano padrão
+* `Guidance`: instruindo o usuário como ajuda ou contexto
+* `Important`: chamando a atenção do usuário para informações
+* `Title`: titulando uma seção ou visualização
+
+Estes podem se expandir ao longo do tempo à medida que são adicionados à base de código do Atuin, mas o Atuin deve ter fallbacks adicionados para quaisquer novos *Significados* para que, quer os temas se limitem à lista atual ou aproveitem novos *Significados* no futuro, eles continuem funcionando de forma sensata.
+
+**Nota para colaboradores do Atuin**: por favor, identifiquem e, quando apropriado durante seus próprios PRs, estendam o enum Meanings, se necessário (junto com um Meaning de fallback!).
+
+## Criação de tema
+
+Quando um nome de tema é lido, mas ainda não carregado, o Atuin o procurará na pasta
+`~/.config/atuin/themes/` a menos que seja substituído pela variável de ambiente `ATUIN_THEME_DIR`. Ele tentará abrir um arquivo com o nome `NOMEDOTEMA.toml` e lê-lo como um
+mapeamento de *Significados* para cores.
+
+As cores podem ser especificadas como nomes da crate [palette](https://ogeon.github.io/docs/palette/master/palette/named/index.html)
+crate em minúsculas, ou como códigos hexadecimais de seis caracteres, prefixados com `#`. Por exemplo,
+os seguintes são nomes de cores válidos:
+
+* `#ff0088`
+* `teal`
+* `powderblue`
+
+Um arquivo de tema, digamos `meu-tema.toml`, pode então ser construído, como:
+
+```toml
+[theme]
+name = "meu-tema"
+parent = "autumn"
+
+[colors]
+AlertInfo = "green"
+Guidance = "green"
+
+```
+
+onde nem todos os *Significados* precisam ser explicitamente definidos. Se estiverem ausentes,
+então a cor será escolhida do tema pai, se um for definido, ou se essa
+chave estiver faltando no bloco `theme`, do tema padrão.
+
+Este arquivo de tema deve ser movido para `~/.config/atuin/themes/meu-tema.toml` e o
+seguinte adicionado a `~/.config/atuin/config.toml`:
+
+```
+[theme]
+name = "meu-tema"
+```
+
+Na próxima vez que você executar o Atuin, seu tema deverá ser aplicado.

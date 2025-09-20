@@ -1,0 +1,47 @@
+---
+title: estatísticas
+---
+
+O Atuin também pode calcular estatísticas com base no seu histórico - isso é atualmente um pouco básico, mas mais recursos virão.
+
+## Estatísticas de 1 dia
+
+Você fornece o ponto de partida, e o Atuin calcula as estatísticas para 24h a partir desse ponto. A análise de data é fornecida por `interim`, que suporta diferentes formatos para datas completas ou relativas. Certos formatos dependem da opção de dialeto em sua [configuração](/configuration/config#dialect) para diferenciar dia de mês. Consulte [a documentação do módulo](https://docs.rs/interim/0.1.0/interim/#supported-formats) para mais detalhes sobre os formatos de data suportados.
+
+```sh
+$ atuin stats last friday
+
++---------------------+------------+
+| Estatística         | Valor      |
++---------------------+------------+
+| Comando mais usado  | git status |
++---------------------+------------+
+| Comandos executados |        450 |
++---------------------+------------+
+| Comandos únicos executados |        213 |
++---------------------+------------+
+
+# Mais alguns exemplos:
+$ atuin stats 2018-04-01
+$ atuin stats April 1
+$ atuin stats 01/04/22
+$ atuin stats last thursday 3pm  # entre a última quinta-feira às 15:00 e a sexta-feira seguinte às 15:00
+```
+
+## Estatísticas de histórico completo
+
+```sh
+$ atuin stats
+# ou
+$ atuin stats all
+
++---------------------+-------+
+| Estatística         | Valor |
++---------------------+-------+
+| Comando mais usado  |    ls |
++---------------------+-------+
+| Comandos executados |  8190 |
++---------------------+-------+
+| Comandos únicos executados |  2996 |
++---------------------+-------+
+```
