@@ -63,5 +63,5 @@ extra:
 
 nav:
   - Home: index.md
-  - Atuin CLI: '!import https://github.com/atuinsh/atuin?branch=mkt/docs-migration&docs_dir=docs/*'
-  - Atuin Desktop: '!import https://github.com/atuinsh/desktop?branch=mkt/docs-migration&docs_dir=docs/*'
+  - Atuin CLI: '!import https://github.com/atuinsh/atuin?branch=mkt/docs-migration&docs_dir=docs/docs/*&config=docs/mkdocs.yml'
+  - Atuin Desktop: '!import https://github.com/atuinsh/desktop?branch=mkt/docs-migration&docs_dir=docs/docs/*&config=docs/mkdocs.yml'
