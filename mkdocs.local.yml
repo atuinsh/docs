@@ -46,8 +46,14 @@ markdown_extensions:
   - md_in_html
   - tables
   - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md
-  - Atuin CLI: '!import file:///Users/binarymuse/src/docs-migration/atuin?docs_dir=docs/*'
-  - Atuin Desktop: '!import file:///Users/binarymuse/src/docs-migration/desktop?docs_dir=docs/*'
+  - Atuin CLI: '!import file:///Users/binarymuse/src/docs-migration/atuin?branch=mkt/docs-migration&docs_dir=docs/*'
+  - Atuin Desktop: '!import file:///Users/binarymuse/src/docs-migration/desktop?branch=mkt/docs-migration&docs_dir=docs/*'
