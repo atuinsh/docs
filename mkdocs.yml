@@ -94,5 +94,5 @@ extra:
 
 nav:
   - Home: index.md
-  - CLI: "!import https://github.com/atuinsh/atuin?branch=mkt/docs-migration&docs_dir=docs/docs/*&config=docs/mkdocs.yml"
-  - Desktop: "!import https://github.com/atuinsh/desktop?branch=mkt/docs-migration&docs_dir=docs/docs/*&config=docs/mkdocs.yml"
+  - CLI: "!import https://github.com/atuinsh/atuin?branch=main&docs_dir=docs/docs/*&config=docs/mkdocs.yml"
+  - Desktop: "!import https://github.com/atuinsh/desktop?branch=main&docs_dir=docs/docs/*&config=docs/mkdocs.yml"
