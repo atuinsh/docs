@@ -1,0 +1,61 @@
+site_name: Atuin Documentation
+site_url: https://docs.atuin.sh
+repo_url: https://github.com/atuinsh/atuin
+repo_name: atuinsh/atuin
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+
+plugins:
+  - search
+  - multirepo:
+      cleanup: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.keys
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/atuinsh/atuin
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/jR3tfchVvW
+
+nav:
+  - Home: index.md
+  - Atuin CLI: '!import https://github.com/atuinsh/atuin?branch=mkt/docs-migration&docs_dir=docs/*'
+  - Atuin Desktop: '!import https://github.com/atuinsh/desktop?branch=mkt/docs-migration&docs_dir=docs/*'

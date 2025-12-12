@@ -1,16 +1,12 @@
 # build output
-dist/
-# generated types
-.astro/
+site/
 
-# dependencies
-node_modules/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+.python-version
+uv.lock
 
 # environment variables
 .env
@@ -22,3 +18,6 @@ pnpm-debug.log*
 # swap vim files
 *.swp
 *.swo
+
+# multirepo temp directory
+temp_dir/
