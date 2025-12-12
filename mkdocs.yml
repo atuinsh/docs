@@ -34,6 +34,37 @@ plugins:
       cleanup: false
   - git-revision-date-localized:
       enable_creation_date: true
+  - redirects:
+      redirect_maps:
+        "guide/getting-started.md": "cli/guide/getting-started.md"
+        "guide/installation.md": "cli/guide/installation.md"
+        "guide/sync.md": "cli/guide/sync.md"
+        "guide/import.md": "cli/guide/import.md"
+        "guide/basic-usage.md": "cli/guide/basic-usage.md"
+        "guide/dotfiles.md": "cli/guide/dotfiles.md"
+        "guide/theming.md": "cli/guide/theming.md"
+        "configuration/config.md": "cli/configuration/config.md"
+        "configuration/key-binding.md": "cli/configuration/key-binding.md"
+        "reference/list.md": "cli/reference/list.md"
+        "reference/search.md": "cli/reference/search.md"
+        "reference/stats.md": "cli/reference/stats.md"
+        "reference/doctor.md": "cli/reference/doctor.md"
+        "reference/daemon.md": "cli/reference/daemon.md"
+        "reference/import.md": "cli/reference/import.md"
+        "reference/info.md": "cli/reference/info.md"
+        "reference/gen-completions.md": "cli/reference/gen-completions.md"
+        "reference/prune.md": "cli/reference/prune.md"
+        "reference/sync.md": "cli/reference/sync.md"
+        "self-hosting/server-setup.md": "cli/self-hosting/server-setup.md"
+        "self-hosting/usage.md": "cli/self-hosting/usage.md"
+        "self-hosting/docker.md": "cli/self-hosting/docker.md"
+        "self-hosting/kubernetes.md": "cli/self-hosting/kubernetes.md"
+        "self-hosting/systemd.md": "cli/self-hosting/systemd.md"
+        "known-issues.md": "cli/known-issues.md"
+        "integrations.md": "cli/integrations.md"
+        "faq.md": "cli/faq.md"
+        "uninstall.md": "cli/uninstall.md"
+        "sync-v2.md": "cli/sync-v2.md"
 
 markdown_extensions:
   - pymdownx.highlight:
