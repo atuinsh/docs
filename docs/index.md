@@ -1,27 +1,22 @@
-# Atuin Documentation
+---
+hide:
+  - navigation
+  - toc
+---
 
-Welcome to the unified Atuin documentation.
+<style>
+.md-content__button { display: none; }
+</style>
 
-## Atuin CLI
+<div class="hero" markdown>
 
-A magical shell history tool that replaces your existing shell history with a SQLite database, and records additional context for your commands. Sync your shell history between all of your machines - fully end-to-end encrypted.
+# Making your shell **magical**
 
-```
-bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
-```
+Atuin gives you powerful tools to master your terminal: magical shell history sync across all your machines, and runbooks to automate your workflows.
 
-```
-atuin register -u <USERNAME> -e <EMAIL>
-atuin import auto
-atuin sync
-```
+<div class="hero-buttons" markdown>
+[CLI Docs](cli/){ .md-button .md-button--primary }
+[Desktop Docs](desktop/){ .md-button }
+</div>
 
-[Get started with Atuin CLI →](cli/)
-
-## Atuin Desktop
-
-Runbooks and automation for your terminal. Build, share, and run operational runbooks with a powerful block-based interface.
-
-[Download for macOS](https://cdn.crabnebula.app/download/atuin/atuin-desktop/latest/platform/dmg-aarch64)
-
-[Get started with Atuin Desktop →](desktop/)
+</div>
