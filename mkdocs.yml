@@ -66,6 +66,7 @@ plugins:
         "faq.md": "cli/faq.md"
         "uninstall.md": "cli/uninstall.md"
         "sync-v2.md": "cli/sync-v2.md"
+        "index.md": "cli/index.md"
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -94,6 +95,5 @@ extra:
       link: https://discord.gg/jR3tfchVvW
 
 nav:
-  - Home: index.md
   - CLI: "!import https://github.com/atuinsh/atuin?branch=main&docs_dir=docs/docs/*&config=docs/mkdocs.yml"
   - Desktop: "!import https://github.com/atuinsh/desktop?branch=main&docs_dir=docs/docs/*&config=docs/mkdocs.yml"
